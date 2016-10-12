@@ -30,3 +30,4 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
+apply plugin: 'com.google.gms.google-services'  //added to use firebase services
