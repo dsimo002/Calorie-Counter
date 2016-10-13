@@ -29,11 +29,16 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class AddEntryBreakfast extends AppCompatActivity {
-    public class FoodEntry {
+    public static class FoodEntry {
+        public FoodEntry() {
+            this.Name = "";
+            this.Calories = "";
+            this.Description = "";
+        }
         public String Name;
         public String Calories;
         public String Description;
-    }
+    };
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
