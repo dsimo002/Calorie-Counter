@@ -46,6 +46,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "504898244438-252gtia9kq90srcq3i6o0m0cpv23ilbd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cs180.team2.caloriecounter",
+            "certificate_hash": "04C80A464AB8CEACFDD457B55D4A76EA7D0A5803"
+          }
+        },
+        {
           "client_id": "504898244438-h4vaen5mvb6d5b3dvja44bnimlf7qqkj.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -60,8 +68,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504898244438-h4vaen5mvb6d5b3dvja44bnimlf7qqkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

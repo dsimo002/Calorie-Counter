@@ -13,11 +13,61 @@
     tools:context="com.cs180.team2.caloriecounter.AddEntryBreakfast"
     tools:showIn="@layout/activity_add_entry_breakfast">
 
-    <SearchView
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="428dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="Search Foods"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="159dp"
+        android:layout_marginEnd="159dp"
+        android:id="@+id/text" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search"
+        android:layout_marginTop="58dp"
+        android:id="@+id/textView2"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="64dp"
+        android:layout_marginEnd="64dp"
+        android:id="@+id/search"
+        android:layout_alignBaseline="@+id/text"
+        android:layout_alignBottom="@+id/text"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="searchDatabase" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel"
+        android:layout_below="@+id/search"
+        android:layout_alignLeft="@+id/search"
+        android:layout_alignStart="@+id/search" />
+
+    <Button
+        android:text="Custom Food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addcustomfoodbutton"
+        android:layout_alignBaseline="@+id/cancel"
+        android:layout_alignBottom="@+id/cancel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
