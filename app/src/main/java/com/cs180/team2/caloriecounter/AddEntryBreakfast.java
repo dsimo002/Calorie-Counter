@@ -29,11 +29,21 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class AddEntryBreakfast extends AppCompatActivity {
+    private DatabaseReference myRef;
     public static class FoodEntry {
         public FoodEntry() {
             this.Name = "";
             this.Calories = "";
             this.Description = "";
+        }
+        public String getName() {
+            return this.Name;
+        }
+        public String getCalories() {
+            return this.Calories;
+        }
+        public String getDescription() {
+            return  this.Description;
         }
         public String Name;
         public String Calories;
@@ -74,16 +84,15 @@ public class AddEntryBreakfast extends AppCompatActivity {
         EditText inputTxt = (EditText) findViewById(R.id.text);
         String str = inputTxt.getText().toString();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
-        Query result = myRef.orderByChild(str).limitToFirst(1);
+        myRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
+        Query result = myRef.equalTo(str).limitToFirst(1);
 
         ValueEventListener FoodResult = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FoodEntry Foodresult = dataSnapshot.getValue(FoodEntry.class);
                 TextView textView2 = (TextView) findViewById(R.id.textView2);
-                textView2.setText("Name: " + Foodresult.Name + "\nCalories: " + Foodresult.Calories + "\nDescription: " + Foodresult.Description);
+                //textView2.setText("Name: " +  + "\nCalories: " + Foodresult.Calories + "\nDescription: " + Foodresult.Description);
             }
 
             @Override
