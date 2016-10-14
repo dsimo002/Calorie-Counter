@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.cs180.team2.caloriecounter.R.id.textView2;
 
 
 public class AddEntryBreakfast extends AppCompatActivity {
@@ -84,24 +85,26 @@ public class AddEntryBreakfast extends AppCompatActivity {
         EditText inputTxt = (EditText) findViewById(R.id.text);
         String str = inputTxt.getText().toString();
 
-        myRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
-        Query result = myRef.equalTo(str).limitToFirst(1);
+        DatabaseReference mFoodRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
+        final DatabaseReference mSearchedFoodRef = mFoodRef.child(str);
 
-        ValueEventListener FoodResult = new ValueEventListener() {
+        mSearchedFoodRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                FoodEntry Foodresult = dataSnapshot.getValue(FoodEntry.class);
+
+                String Foodname = mSearchedFoodRef.getKey();
+                Long FoodCalories = dataSnapshot.child("Calories").getValue(Long.class);
+                String FoodDescription = dataSnapshot.child("Description").getValue(String.class);
                 TextView textView2 = (TextView) findViewById(R.id.textView2);
-                //textView2.setText("Name: " +  + "\nCalories: " + Foodresult.Calories + "\nDescription: " + Foodresult.Description);
+                textView2.setText("Name: " + Foodname + "\nCalories: " + FoodCalories + "\nDescription: " + FoodDescription);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getMessage());
             }
-        };
+        });
 
-        result.addListenerForSingleValueEvent(FoodResult);
     }
 
     /**
