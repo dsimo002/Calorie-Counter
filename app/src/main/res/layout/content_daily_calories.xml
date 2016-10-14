@@ -41,7 +41,8 @@
         android:id="@+id/button5"
         android:layout_below="@+id/button4"
         android:layout_alignLeft="@+id/button4"
-        android:layout_alignStart="@+id/button4" />
+        android:layout_alignStart="@+id/button4"
+        android:onClick="addEntrySnacks" />
 
     <Button
         android:text="Add"
@@ -51,7 +52,8 @@
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/button4"
         android:layout_alignStart="@+id/button4"
-        android:layout_marginTop="21dp" />
+        android:layout_marginTop="21dp"
+        android:onClick="addEntryLunch" />
 
     <Button
         android:text="Add"
@@ -61,7 +63,8 @@
         android:layout_above="@+id/button5"
         android:layout_alignLeft="@+id/button5"
         android:layout_alignStart="@+id/button5"
-        android:layout_marginBottom="13dp" />
+        android:layout_marginBottom="13dp"
+        android:onClick="addEntryDinner" />
 
     <TextView
         android:text="Dinner"
