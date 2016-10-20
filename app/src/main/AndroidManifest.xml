@@ -47,7 +47,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".addEntryLunch" />
         <activity
             android:name=".AddEntryLunch"
             android:label="@string/title_activity_add_entry_lunch"
@@ -59,7 +58,11 @@
         <activity
             android:name=".AddEntrySnacks"
             android:label="@string/title_activity_add_entry_snacks"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegisterUser"
+            android:label="@string/title_activity_register_user"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
