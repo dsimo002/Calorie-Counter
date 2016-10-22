@@ -169,8 +169,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (password.equals(pw)) {
                             dailyCalories(); //TODO: REMEMBER TO KEEP USERNAME/FULL NAME VALUES GLOBALLY FROM HERE ON
-                            //TODO: FIX THIS IT DOESNT GO TO NEXT ACTIVITY
-                        } else {
+                        }
+                        else {
                             Context context = getApplicationContext();
                             CharSequence text = "Wrong password!";
                             int duration = Toast.LENGTH_SHORT;
@@ -184,7 +184,6 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
                         builder.setMessage("Username not found. Register new user?"); //This dialog asks the user if they want to register a new user
-                        //TODO: FIX DIALOG, DOES NOT POP UP
 
 
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
