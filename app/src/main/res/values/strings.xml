@@ -15,4 +15,9 @@
     </string>
     <string name="title_activity_daily_calories">DailyCalories</string>
     <string name="title_activity_add_entry_breakfast">AddEntryBreakfast</string>
+    <string name="title_activity_add_entry_lunch">AddEntryLunch</string>
+    <string name="title_activity_add_entry_dinner">AddEntryDinner</string>
+    <string name="title_activity_add_entry_snacks">AddEntrySnacks</string>
+    <string name="title_activity_register_user">RegisterUser</string>
+    <string name="title_activity_login2">Sign in</string>
 </resources>

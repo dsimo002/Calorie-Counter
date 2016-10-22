@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import static com.cs180.team2.caloriecounter.R.id.textView2;
 
 
-public class AddEntryBreakfast extends AppCompatActivity {
+public class AddEntryLunch extends AppCompatActivity {
     private DatabaseReference myRef;
     public static class FoodEntry {
         public FoodEntry() {
@@ -60,9 +60,10 @@ public class AddEntryBreakfast extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_entry_breakfast);
+        setContentView(R.layout.activity_add_entry_lunch);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -105,7 +106,7 @@ public class AddEntryBreakfast extends AppCompatActivity {
      */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("AddEntryBreakfast Page") // TODO: Define a title for the content shown.
+                .setName("AddEntryLunch Page") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();

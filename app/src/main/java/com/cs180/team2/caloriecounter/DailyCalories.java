@@ -36,14 +36,6 @@ public class DailyCalories extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
@@ -101,6 +93,24 @@ public class DailyCalories extends AppCompatActivity {
 
     public void addEntryBreakfast(View view) {
         Intent intent = new Intent(this, AddEntryBreakfast.class);
+        startActivity(intent);
+
+    }
+
+    public void addEntryLunch(View view) {
+        Intent intent = new Intent(this, AddEntryLunch.class);
+        startActivity(intent);
+
+    }
+
+    public void addEntryDinner(View view) {
+        Intent intent = new Intent(this, AddEntryDinner.class);
+        startActivity(intent);
+
+    }
+
+    public void addEntrySnacks(View view) {
+        Intent intent = new Intent(this, AddEntrySnacks.class);
         startActivity(intent);
 
     }
