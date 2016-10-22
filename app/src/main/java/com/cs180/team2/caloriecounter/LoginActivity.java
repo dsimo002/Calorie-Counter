@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                         TextView textView = (TextView) findViewById(R.id.databaseOutput);
                         textView.setText("Username: " + username + "\nFull Name: " + fullName + "\nPassword: " + pw);
 
-                        if (password == pw) {
+                        if (password.equals(pw)) {
                             dailyCalories(); //TODO: REMEMBER TO KEEP USERNAME/FULL NAME VALUES GLOBALLY FROM HERE ON
                             //TODO: FIX THIS IT DOESNT GO TO NEXT ACTIVITY
                         } else {
