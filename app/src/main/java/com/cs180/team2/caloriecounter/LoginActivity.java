@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.InputType;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,7 +74,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private View mForgotPasswordView;
 
+    private String m_Text;
+    public String secretQuestion;
+    public String secretAnswer;
     public String username = "";
     private String pw = "";
     public String fullName = "";
@@ -97,6 +102,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        mForgotPasswordView = findViewById(R.id.forgot_password_button);
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -107,6 +114,16 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        Button mforgotPasswordButton = (Button) findViewById(R.id.forgot_password_button);
+        mforgotPasswordButton.setOnClickListener( new OnClickListener() {
+
+            @Override
+            public void onClick(View v){
+                forgotPassword();
+            }
+        });
+
     }
 
 
@@ -210,6 +227,130 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void forgotPassword(){
+        m_Text = "";
+        final int usrChoice = 0;
+        final int pwChoice = 1;
+        final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/registeredusers");
+        final DatabaseReference usersByName = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/usersByName");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
+        builder.setMessage("Enter your Full Name and then click \"username\" button " +
+                "to get your username or enter your username and click the \"password\" button to get your password");
+
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("Password", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                m_Text = input.getText().toString(); //will be password from input
+
+                ValueEventListener valueEventListener = registeredusers.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.hasChild(m_Text)){ //m_text is username from input right here
+                            username = dataSnapshot.child(m_Text).getKey();
+                            secretQuestion = dataSnapshot.child(username).child("secretq").child("question").getValue(String.class);
+                            secretAnswer = dataSnapshot.child(username).child("secretq").child("answer").getValue(String.class);
+                            pw = dataSnapshot.child(username).child("Password").getValue(String.class);
+
+                            askQuestions(pwChoice, secretQuestion, secretAnswer, username, pw);
+                        }
+                        else {
+                            final AlertDialog.Builder builder2 = new AlertDialog.Builder(LoginActivity.this);
+                            builder2.setMessage("Could not find");
+                            builder2.show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+        builder.setNegativeButton("Username", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                    m_Text = input.getText().toString(); //will be Full Name from input
+
+                    ValueEventListener valueEventListener = usersByName.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChild(m_Text)){ //m_text is Full Name from input right here
+                                fullName = dataSnapshot.child(m_Text).getKey();
+                                secretQuestion = dataSnapshot.child(fullName).child("secretq").child("question").getValue(String.class);
+                                secretAnswer = dataSnapshot.child(fullName).child("secretq").child("answer").getValue(String.class);
+                                pw = "";//useless but required to use the function
+                                username = dataSnapshot.child(fullName).child("username").getValue(String.class);
+
+
+                                askQuestions(usrChoice, secretQuestion, secretAnswer, username, pw);
+                            }
+                            else {
+                                final AlertDialog.Builder builder2 = new AlertDialog.Builder(LoginActivity.this);
+                                builder2.setMessage("Could not find");
+                                builder2.show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void askQuestions(final int choicer, String secretQuestion, final String secretAnswer, String usrNme, String psswrd){
+
+        final String dialogBoxPW = "Your password is: " + psswrd;
+        final String dialogBoxUN = "Your username is: " + usrNme;
+        final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setTitle("Answer your secret question: " + secretQuestion);
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString(); //answer to secret question
+
+                if(m_Text.equals(secretAnswer) && choicer == 1) {
+                    final AlertDialog.Builder builder2 = new AlertDialog.Builder(LoginActivity.this);
+                    builder2.setMessage(dialogBoxPW);
+                    builder2.show();
+                } else if(m_Text.equals(secretAnswer) && choicer == 0){
+                    final AlertDialog.Builder builder2 = new AlertDialog.Builder(LoginActivity.this);
+                    builder2.setMessage(dialogBoxUN);
+                    builder2.show();
+                } else {
+                    final AlertDialog.Builder builder2 = new AlertDialog.Builder(LoginActivity.this);
+                    builder2.setMessage("That's wrong!");
+                    builder2.show();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
     private boolean isEmailValid(String email) {
         return email != "";
     }
@@ -236,7 +377,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    /*public void forgotPassword(){
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(intent);
+    }*/
 
 
 
