@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -168,8 +169,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (password.equals(pw)) {
                             dailyCalories(); //TODO: REMEMBER TO KEEP USERNAME/FULL NAME VALUES GLOBALLY FROM HERE ON
-                            //TODO: FIX THIS IT DOESNT GO TO NEXT ACTIVITY
-                        } else {
+                        }
+                        else {
                             Context context = getApplicationContext();
                             CharSequence text = "Wrong password!";
                             int duration = Toast.LENGTH_SHORT;
@@ -179,10 +180,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         }
-                    } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext()); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
+                    }
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
                         builder.setMessage("Username not found. Register new user?"); //This dialog asks the user if they want to register a new user
-                        //TODO: FIX DIALOG DOES NOT POP UP
 
 
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -197,6 +198,7 @@ public class LoginActivity extends AppCompatActivity {
                         });
 
                         AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                 }
 
@@ -209,12 +211,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email != "";
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 0;
     }
 
@@ -226,7 +226,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void dailyCalories() { //TODO: FIX IT DOESNT GO TO NEXT ACTIVITY
+    public void dailyCalories() {
         Intent intent = new Intent(this, DailyCalories.class);
         startActivity(intent);
     }
