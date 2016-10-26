@@ -63,6 +63,15 @@
             android:name=".RegisterUser"
             android:label="@string/title_activity_register_user"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs180.team2.caloriecounter.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>
