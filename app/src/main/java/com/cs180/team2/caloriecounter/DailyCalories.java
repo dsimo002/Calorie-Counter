@@ -1,5 +1,6 @@
 package com.cs180.team2.caloriecounter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -113,6 +115,19 @@ public class DailyCalories extends AppCompatActivity {
         Intent intent = new Intent(this, AddEntrySnacks.class);
         startActivity(intent);
 
+    }
+
+    public void logOut(View view)
+    {
+        Context context = getApplicationContext();
+        CharSequence text = "Logging out...";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+        toast.show();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
 }

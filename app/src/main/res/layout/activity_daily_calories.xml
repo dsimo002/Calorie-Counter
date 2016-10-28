@@ -9,7 +9,8 @@
     tools:context="com.cs180.team2.caloriecounter.DailyCalories">
 
     <include layout="@layout/content_daily_calories"
-        android:layout_height="364dp" />
+        android:layout_height="364dp"
+        android:id="@+id/include" />
 
     <Button
         android:text="Button"
@@ -35,12 +36,14 @@
     </android.support.design.widget.AppBarLayout>
 
     <Button
-        android:text="Button"
+        android:text="Logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button2"
         android:layout_weight="1"
-        app:layout_anchorGravity="top|right"
-        android:layout_gravity="top|left" />
+        app:layout_anchorGravity="bottom|left"
+        android:layout_gravity="top|right"
+        app:layout_anchor="@+id/include"
+        android:onClick="logOut"/>
 
 </android.support.design.widget.CoordinatorLayout>
