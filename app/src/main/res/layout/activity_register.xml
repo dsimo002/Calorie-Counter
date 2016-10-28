@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:id="@+id/regfullname"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:text="Calorie Counter Registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView9"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="*Enter your full name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:paddingTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/regFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Full Name"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <TextView
+        android:text=" *Enter a unique username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView13"
+        android:paddingTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <TextView
+        android:text=" *Enter a password (6 or more characters)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView15"
+        android:paddingTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/ipassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <TextView
+        android:text=" *Re-enter password again"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:paddingTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/irepassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <TextView
+        android:text="*Enter a secret question and answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:paddingTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/secretq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Question"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/secreta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Answer"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/verifypass"
+        android:text="Check if fields are valid"
+        android:textSize="12sp"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    </LinearLayout>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7" />
+
+</LinearLayout>
