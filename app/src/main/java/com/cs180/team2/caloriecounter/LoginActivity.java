@@ -181,8 +181,8 @@ public class LoginActivity extends AppCompatActivity {
                         fullName = dataSnapshot.child(email).child("Name").getValue(String.class);
                         pw = dataSnapshot.child(email).child("Password").getValue(String.class);
 
-                        TextView textView = (TextView) findViewById(R.id.databaseOutput);
-                        textView.setText("Username: " + username + "\nFull Name: " + fullName + "\nPassword: " + pw);
+                        //TextView textView = (TextView) findViewById(R.id.databaseOutput);
+                        //textView.setText("Username: " + username + "\nFull Name: " + fullName + "\nPassword: " + pw);
 
                         if (password.equals(pw)) {
                             dailyCalories(); //TODO: REMEMBER TO KEEP USERNAME/FULL NAME VALUES GLOBALLY FROM HERE ON
@@ -373,6 +373,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void registerUser() {
+        Intent intent = new Intent(this, RegisterUser.class);
+        startActivity(intent);
+    }
+
+    public void registration(View view) {
         Intent intent = new Intent(this, RegisterUser.class);
         startActivity(intent);
     }
