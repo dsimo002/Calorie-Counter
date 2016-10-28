@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.text.DateFormat;
 import java.util.Date;
+
+import static com.cs180.team2.caloriecounter.R.id.textView7;
 
 public class DailyCalories extends AppCompatActivity {
     /**
@@ -144,7 +147,7 @@ public class DailyCalories extends AppCompatActivity {
     }
 
     public void changePassword(){
-     Intent intent = new Intent(this, ChangePasswordActivity.class);
-     startActivity(intent);
+      Intent intent = new Intent(this, ChangePasswordActivity.class);
+      startActivity(intent);
    }
 }

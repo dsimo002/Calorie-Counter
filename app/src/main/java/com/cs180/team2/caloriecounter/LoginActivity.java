@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     private String m_Text;
     public String secretQuestion;
     public String secretAnswer;
-    public String username = "";
+    public static String username = "";
     private String pw = "";
     public String fullName = "";
 

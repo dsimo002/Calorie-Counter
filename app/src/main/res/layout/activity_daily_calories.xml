@@ -45,5 +45,14 @@
         android:layout_gravity="top|right"
         app:layout_anchor="@+id/include"
         android:onClick="logOut"/>
+        
+    <Button
+      android:text="Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/button2"
+      android:layout_weight="1"
+      app:layout_anchorGravity="top|right"
+      android:layout_gravity="top|left" />
 
 </android.support.design.widget.CoordinatorLayout>
