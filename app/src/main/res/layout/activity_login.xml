@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Sign In"
+                android:text="@string/action_sign_in"
                 android:textStyle="bold"
                 android:onClick="addUser" />
 
@@ -85,17 +85,17 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:id="@+id/databaseOutput"
+        android:layout_weight="0.32"
+        android:textAppearance="@android:style/TextAppearance.Material" />
 
     <Button
         android:text="Forgot Username/Password?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/forgot_password_button" />
-
-    <Button
-        android:text="Register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/register_button"
-        android:onClick="registration" />
 </LinearLayout>
