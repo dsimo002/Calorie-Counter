@@ -52,6 +52,19 @@ public class DailyCalories extends AppCompatActivity {
         TextView textView6 = (TextView) findViewById(R.id.textView6);
         textView6.setText(currentDateString);
 
+        String usrnme = "Username: " + LoginActivity.username.toString();
+        TextView textViewUserName = (TextView) findViewById(textView7);
+        textViewUserName.setText(usrnme);
+
+        //View mChangePasswordView;
+        Button mChangePassword = (Button) findViewById(R.id.change_password_button);
+        mChangePassword.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            changePassword();
+          }
+        });
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -130,4 +143,8 @@ public class DailyCalories extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void changePassword(){
+     Intent intent = new Intent(this, ChangePasswordActivity.class);
+     startActivity(intent);
+   }
 }
