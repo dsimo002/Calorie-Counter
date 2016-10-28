@@ -75,10 +75,42 @@ public class AddEntrySnacks extends AppCompatActivity {
 
     public void searchDatabase(View view) {
         EditText inputTxt = (EditText) findViewById(R.id.text);
-        String str = inputTxt.getText().toString();
+        final String str = inputTxt.getText().toString().trim().toLowerCase();
 
-        DatabaseReference mFoodRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
-        final DatabaseReference mSearchedFoodRef = mFoodRef.child(str);
+        final DatabaseReference mFoodRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
+        mFoodRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String results = "";
+                int matches = 0;
+
+                for (DataSnapshot foodSnapshot: dataSnapshot.getChildren()) {
+                    String tag = (String)foodSnapshot.child("Tag").getValue();
+                    String Foodname = foodSnapshot.getKey();
+                    if (tag.equals(str) || Foodname.toLowerCase().equals(str)) {
+                        Long FoodCalories = foodSnapshot.child("Calories").getValue(Long.class);
+                        String FoodDescription = foodSnapshot.child("Description").getValue(String.class);
+                        //results += tag + "\n";
+                        results += "Name: " + Foodname + "\nCalories: " + FoodCalories + "\nDescription: " + FoodDescription + "\n\n";
+                        matches++;
+                    }
+                }
+
+                if (matches == 0)
+                    results = "No results found.";
+
+                TextView textView2 = (TextView) findViewById(R.id.textView2);
+                textView2.setText(results);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getMessage());
+            }
+        });
+
+        /*final DatabaseReference mSearchedFoodRef = mFoodRef.child(str);
+
 
         mSearchedFoodRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,14 +120,14 @@ public class AddEntrySnacks extends AppCompatActivity {
                 Long FoodCalories = dataSnapshot.child("Calories").getValue(Long.class);
                 String FoodDescription = dataSnapshot.child("Description").getValue(String.class);
                 TextView textView2 = (TextView) findViewById(R.id.textView2);
-                textView2.setText("Name: " + Foodname + "\nCalories: " + FoodCalories + "\nDescription: " + FoodDescription);
+                //textView2.setText("Name: " + Foodname + "\nCalories: " + FoodCalories + "\nDescription: " + FoodDescription);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getMessage());
             }
-        });
+        });*/
 
     }
 
