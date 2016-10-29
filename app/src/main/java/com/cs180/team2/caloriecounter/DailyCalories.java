@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.text.DateFormat;
 import java.util.Date;
+
+import static com.cs180.team2.caloriecounter.R.id.textView7;
 
 public class DailyCalories extends AppCompatActivity {
     /**
@@ -51,6 +54,19 @@ public class DailyCalories extends AppCompatActivity {
         String currentDateString = DateFormat.getDateInstance().format(new Date());
         TextView textView6 = (TextView) findViewById(R.id.textView6);
         textView6.setText(currentDateString);
+
+        String usrnme = "Username: " + LoginActivity.username.toString();
+        TextView textViewUserName = (TextView) findViewById(textView7);
+        textViewUserName.setText(usrnme);
+
+        //View mChangePasswordView;
+        Button mChangePassword = (Button) findViewById(R.id.change_password_button);
+        mChangePassword.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            changePassword();
+          }
+        });
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -130,4 +146,8 @@ public class DailyCalories extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void changePassword(){
+      Intent intent = new Intent(this, ChangePasswordActivity.class);
+      startActivity(intent);
+   }
 }
