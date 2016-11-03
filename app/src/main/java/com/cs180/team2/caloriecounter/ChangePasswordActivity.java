@@ -64,6 +64,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                                     Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
                                     toast.show();
+                                } else if(newPass.length() < 6) {
+                                    Context context = getApplicationContext();
+                                    CharSequence text = "The new password must be at least 6 characters";
+                                    int duration = Toast.LENGTH_SHORT;
+
+                                    Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                                    toast.show();
                                 } else {
                                     Map<String, Object> userUpdates = new HashMap<String, Object>();
                                     userUpdates.put(LoginActivity.username + "/Password", newPass);
