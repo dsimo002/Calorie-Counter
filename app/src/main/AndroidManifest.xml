@@ -72,6 +72,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs180.team2.caloriecounter.LoginActivity" />
         </activity>
+        <activity
+            android:name=".AddFood"
+            android:label="@string/title_activity_add_food"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

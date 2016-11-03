@@ -21,4 +21,5 @@
     <string name="title_activity_register_user">RegisterUser</string>
     <string name="title_activity_login2">Sign in</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="title_activity_add_food">AddFood</string>
 </resources>

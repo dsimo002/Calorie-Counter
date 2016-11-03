@@ -1,5 +1,6 @@
 package com.cs180.team2.caloriecounter;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -166,5 +167,11 @@ public class AddEntryLunch extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    public void addFood(View view) {
+        Intent intent = new Intent(this, AddFood.class);
+        startActivity(intent);
+
     }
 }
