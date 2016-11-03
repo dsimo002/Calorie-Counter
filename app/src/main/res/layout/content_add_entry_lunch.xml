@@ -17,14 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="Search Food"
         android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="159dp"
         android:layout_marginEnd="159dp"
-        android:id="@+id/text" />
+        android:id="@+id/text"
+        android:hint="Search Food" />
 
     <TextView
         android:layout_width="wrap_content"

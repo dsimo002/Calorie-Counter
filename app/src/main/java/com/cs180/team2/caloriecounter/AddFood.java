@@ -35,15 +35,13 @@ public class AddFood extends AppCompatActivity {
 
     public static class Foodentry
     {
-        public String Name;
-        public String Calories;
+        public long Calories;
         public String Description;
         public String Tag;
         public String User;
 
-        public Foodentry(String Name, String Calories, String Description, String Tag, String User) {
-            // ...
-            this.Name = Name;
+        public Foodentry(long Calories, String Description, String Tag, String User)
+        {
             this.Calories = Calories;
             this.Description = Description;
             this.Tag = Tag;
@@ -121,7 +119,7 @@ public class AddFood extends AppCompatActivity {
 
         final DatabaseReference foodbase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
 
-        foodbase.child(fname).setValue(new Foodentry(fname, cal, des, tag, user));
+        foodbase.child(fname).setValue(new Foodentry(Integer.parseInt(cal), des, tag, user));
         Context context = getApplicationContext();
         CharSequence text = "Food entry successfully added!";
         int duration = Toast.LENGTH_SHORT;
