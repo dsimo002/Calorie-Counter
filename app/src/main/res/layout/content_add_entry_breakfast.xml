@@ -17,28 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="Search Food"
         android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="159dp"
         android:layout_marginEnd="159dp"
-        android:id="@+id/text" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search"
-        android:layout_marginTop="58dp"
-        android:id="@+id/textView2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textAppearance="@android:style/TextAppearance.Material"
-        android:textSize="18sp" />
+        android:id="@+id/text"
+        android:hint="Search Food" />
 
     <Button
         android:text="Search"
@@ -60,5 +46,14 @@
         android:id="@+id/addcustomfoodbutton"
         android:layout_below="@+id/search"
         android:layout_alignRight="@+id/search"
-        android:layout_alignEnd="@+id/search" />
+        android:layout_alignEnd="@+id/search"
+        android:onClick="addFood" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/addcustomfoodbutton"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView2" />
+
 </RelativeLayout>

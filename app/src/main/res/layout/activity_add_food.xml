@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
-    android:id="@+id/regfullname"
+    android:id="@+id/activity_add_food"
     android:weightSum="1"
     android:orientation="vertical">
 
-
     <TextView
-        android:text="Calorie Counter Registration"
+        android:text="Add Custom Food Entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView9"
@@ -20,7 +19,7 @@
         android:textStyle="normal|bold" />
 
     <TextView
-        android:text="*Enter your full name"
+        android:text="*Enter a full, detailed name of the food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView11"
@@ -29,7 +28,7 @@
         android:textSize="14sp" />
 
     <AutoCompleteTextView
-        android:id="@+id/regFullName"
+        android:id="@+id/iname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Full Name"
@@ -39,7 +38,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:text=" *Enter a unique username"
+        android:text=" *Enter Calories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView13"
@@ -48,17 +47,17 @@
         android:textSize="14sp" />
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+        android:id="@+id/icalories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="Calories"
         android:inputType="textPersonName"
         android:maxLines="1"
         android:singleLine="true"
         android:textSize="14sp" />
 
     <TextView
-        android:text=" *Enter a password (6 or more characters)"
+        android:text=" *Enter a description (serving size recommended at least)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView15"
@@ -67,17 +66,17 @@
         android:textSize="14sp" />
 
     <AutoCompleteTextView
-        android:id="@+id/ipassword"
+        android:id="@+id/idescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
+        android:hint="Description"
+        android:inputType="textPersonName"
         android:maxLines="1"
         android:singleLine="true"
         android:textSize="14sp" />
 
     <TextView
-        android:text=" *Re-enter password again"
+        android:text=" *Enter Tag (e.g. pizza, vegetable, breakfast etc.)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView14"
@@ -86,39 +85,10 @@
         android:textSize="14sp" />
 
     <AutoCompleteTextView
-        android:id="@+id/irepassword"
+        android:id="@+id/itag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textSize="14sp" />
-
-    <TextView
-        android:text="*Enter a secret question and answer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView8"
-        android:paddingTop="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="14sp" />
-
-    <AutoCompleteTextView
-        android:id="@+id/secretq"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Your Question"
-        android:inputType="textPersonName"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textSize="14sp" />
-
-    <AutoCompleteTextView
-        android:id="@+id/secreta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Your Answer"
+        android:hint="Tag"
         android:inputType="textPersonName"
         android:maxLines="1"
         android:singleLine="true"
@@ -136,7 +106,6 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
 
     </LinearLayout>
 

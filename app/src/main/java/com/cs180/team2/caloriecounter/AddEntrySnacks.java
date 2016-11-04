@@ -1,5 +1,7 @@
 package com.cs180.team2.caloriecounter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -25,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import static com.cs180.team2.caloriecounter.R.id.textView2;
 
@@ -81,26 +87,36 @@ public class AddEntrySnacks extends AppCompatActivity {
         mFoodRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String results = "";
+                ArrayList<com.cs180.team2.caloriecounter.FoodEntry> results = new ArrayList<com.cs180.team2.caloriecounter.FoodEntry>();
                 int matches = 0;
 
                 for (DataSnapshot foodSnapshot: dataSnapshot.getChildren()) {
                     String tag = (String)foodSnapshot.child("Tag").getValue();
                     String Foodname = foodSnapshot.getKey();
                     if (tag.equals(str) || Foodname.toLowerCase().equals(str)) {
+                        String User = foodSnapshot.child("User").getValue(String.class);
                         Long FoodCalories = foodSnapshot.child("Calories").getValue(Long.class);
                         String FoodDescription = foodSnapshot.child("Description").getValue(String.class);
+                        com.cs180.team2.caloriecounter.FoodEntry foodresult = new com.cs180.team2.caloriecounter.FoodEntry(Foodname, FoodCalories, FoodDescription, tag, User);
                         //results += tag + "\n";
-                        results += "Name: " + Foodname + "\nCalories: " + FoodCalories + "\nDescription: " + FoodDescription + "\n\n";
+                        results.add(foodresult);
                         matches++;
                     }
                 }
+                if (matches == 0) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "No matches found!";
+                    int duration = Toast.LENGTH_SHORT;
 
-                if (matches == 0)
-                    results = "No results found.";
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
 
-                TextView textView2 = (TextView) findViewById(R.id.textView2);
-                textView2.setText(results);
+                FoodEntryAdapter adapter = new FoodEntryAdapter(AddEntrySnacks.this, results);
+
+
+                ListView textView2 = (ListView) findViewById(R.id.textView2);
+                textView2.setAdapter(adapter);
             }
 
             @Override
@@ -165,5 +181,11 @@ public class AddEntrySnacks extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    public void addFood(View view) {
+        Intent intent = new Intent(this, AddFood.class);
+        startActivity(intent);
+
     }
 }
