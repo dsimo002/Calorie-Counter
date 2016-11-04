@@ -31,3 +31,4 @@ Milestone 1 Requirements:
 TODO:
 - Diet Tracker (Calorie limits and Daily logs)
 - Progress Tracker (Warnings for getting close to calorie limits. Display caloric intake in graphs.)
+- GUI Refinement
