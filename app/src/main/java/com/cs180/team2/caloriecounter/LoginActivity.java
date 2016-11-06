@@ -115,6 +115,8 @@ public class LoginActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
+
+
         Button mforgotPasswordButton = (Button) findViewById(R.id.forgot_password_button);
         mforgotPasswordButton.setOnClickListener( new OnClickListener() {
 
@@ -363,6 +365,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void dailyCaloriesGUI(View view) {
+        username = "";
         Intent intent = new Intent(this, DailyCalories.class);
         startActivity(intent);
     }

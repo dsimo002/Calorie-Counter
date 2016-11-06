@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.cs180.team2.caloriecounter.LoginActivity.username;
+import static com.cs180.team2.caloriecounter.R.id.addcustomfoodbutton;
+import static com.cs180.team2.caloriecounter.R.id.custom;
 import static com.cs180.team2.caloriecounter.R.id.textView2;
 
 
@@ -75,6 +80,14 @@ public class AddEntryLunch extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        Button customFood = (Button) findViewById(addcustomfoodbutton);
+        if(username.isEmpty())   //if guest user, don't allow them to add custom food
+        {
+            customFood.setVisibility(View.INVISIBLE);
+        }
+        else
+            customFood.setVisibility(View.VISIBLE);
     }
 
 

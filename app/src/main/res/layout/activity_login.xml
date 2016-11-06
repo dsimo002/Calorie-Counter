@@ -76,26 +76,27 @@
                 android:onClick="addUser" />
 
             <Button
-                android:text="TEST - Go to next activity"
+                android:text="Forgot Username/Password?"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/button3"
-                android:onClick="dailyCaloriesGUI" />
+                android:id="@+id/forgot_password_button" />
+
+            <Button
+                android:text="Register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/register_button"
+                android:onClick="registration" />
 
         </LinearLayout>
     </ScrollView>
 
-
     <Button
-        android:text="Forgot Username/Password?"
+        android:text="Sign in as guest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/forgot_password_button" />
+        android:id="@+id/button3"
+        android:onClick="dailyCaloriesGUI" />
 
-    <Button
-        android:text="Register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/register_button"
-        android:onClick="registration" />
+
 </LinearLayout>

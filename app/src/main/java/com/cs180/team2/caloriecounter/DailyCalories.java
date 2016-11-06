@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.text.DateFormat;
 import java.util.Date;
 
+import static com.cs180.team2.caloriecounter.LoginActivity.username;
 import static com.cs180.team2.caloriecounter.R.id.textView7;
 
 public class DailyCalories extends AppCompatActivity {
@@ -33,7 +34,6 @@ public class DailyCalories extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
 
         super.onCreate(savedInstanceState);
@@ -55,21 +55,38 @@ public class DailyCalories extends AppCompatActivity {
         TextView textView6 = (TextView) findViewById(R.id.textView6);
         textView6.setText(currentDateString);
 
-        String usrnme = "Username: " + LoginActivity.username.toString();
+        String usrnme = "Welcome back, " + username.toString() + "!";
         TextView textViewUserName = (TextView) findViewById(textView7);
-        textViewUserName.setText(usrnme);
 
-        //View mChangePasswordView;
         Button mChangePassword = (Button) findViewById(R.id.change_password_button);
-        mChangePassword.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            changePassword();
-          }
-        });
+        boolean isGuest = false;
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        if (!username.isEmpty())
+        {
+            textViewUserName.setText(usrnme);
+            mChangePassword.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            textViewUserName.setText("Guest");      //sign in as guest user
+            isGuest = true;
+        }
+
+        if (isGuest)     //if sign in as guest, don't show change password
+        {
+            mChangePassword.setVisibility(View.INVISIBLE);
+        }
+        //View mChangePasswordView;
+
+        mChangePassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changePassword();
+                }
+            });
+
+            // ATTENTION: This was auto-generated to implement the App Indexing API.
+            // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
