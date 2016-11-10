@@ -132,28 +132,28 @@ public class DailyCalories extends AppCompatActivity {
 
     public void addEntryBreakfast(View view) {
         choice = "Breakfast";
-        Intent intent = new Intent(this, AddEntryBreakfast.class);
+        Intent intent = new Intent(this, AddEntry.class);
         startActivity(intent);
 
     }
 
     public void addEntryLunch(View view) {
         choice = "Lunch";
-        Intent intent = new Intent(this, AddEntryBreakfast.class);
+        Intent intent = new Intent(this, AddEntry.class);
         startActivity(intent);
 
     }
 
     public void addEntryDinner(View view) {
         choice = "Dinner";
-        Intent intent = new Intent(this, AddEntryBreakfast.class);
+        Intent intent = new Intent(this, AddEntry.class);
         startActivity(intent);
 
     }
 
     public void addEntrySnacks(View view) {
         choice = "Snacks";
-        Intent intent = new Intent(this, AddEntryBreakfast.class);
+        Intent intent = new Intent(this, AddEntry.class);
         startActivity(intent);
 
     }

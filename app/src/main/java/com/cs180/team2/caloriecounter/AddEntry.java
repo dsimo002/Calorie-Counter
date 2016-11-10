@@ -42,7 +42,7 @@ import static java.security.AccessController.getContext;
 
 import static com.cs180.team2.caloriecounter.LoginActivity.username;
 
-public class AddEntryBreakfast extends AppCompatActivity {
+public class AddEntry extends AppCompatActivity {
 
     private DatabaseReference myRef;
 
@@ -56,7 +56,7 @@ public class AddEntryBreakfast extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_entry_breakfast);
+        setContentView(R.layout.activity_add_entry);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -110,7 +110,7 @@ public class AddEntryBreakfast extends AppCompatActivity {
                     toast.show();
                 }
 
-                FoodEntryAdapter adapter = new FoodEntryAdapter(AddEntryBreakfast.this, results);
+                FoodEntryAdapter adapter = new FoodEntryAdapter(AddEntry.this, results);
 
 
                 ListView textView2 = (ListView) findViewById(R.id.textView2);
@@ -151,7 +151,7 @@ public class AddEntryBreakfast extends AppCompatActivity {
      */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("AddEntryBreakfast Page") // TODO: Define a title for the content shown.
+                .setName("Add Entry") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();
