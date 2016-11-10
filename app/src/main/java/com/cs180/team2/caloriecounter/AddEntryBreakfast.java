@@ -34,11 +34,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.cs180.team2.caloriecounter.LoginActivity.username;
+import static com.cs180.team2.caloriecounter.DailyCalories.choice;
 import static com.cs180.team2.caloriecounter.R.id.addcustomfoodbutton;
 import static com.cs180.team2.caloriecounter.R.id.textView2;
 import static java.security.AccessController.getContext;
 
+
+import static com.cs180.team2.caloriecounter.LoginActivity.username;
 
 public class AddEntryBreakfast extends AppCompatActivity {
 
