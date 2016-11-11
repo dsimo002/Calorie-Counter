@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,32 +34,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.cs180.team2.caloriecounter.LoginActivity.username;
+import static com.cs180.team2.caloriecounter.DailyCalories.choice;
 import static com.cs180.team2.caloriecounter.R.id.addcustomfoodbutton;
 import static com.cs180.team2.caloriecounter.R.id.textView2;
+import static java.security.AccessController.getContext;
 
 
-public class AddEntryDinner extends AppCompatActivity {
+import static com.cs180.team2.caloriecounter.LoginActivity.username;
+
+public class AddEntry extends AppCompatActivity {
+
     private DatabaseReference myRef;
-    public static class FoodEntry {
-        public FoodEntry() {
-            this.Name = "";
-            this.Calories = "";
-            this.Description = "";
-        }
-        public String getName() {
-            return this.Name;
-        }
-        public String getCalories() {
-            return this.Calories;
-        }
-        public String getDescription() {
-            return  this.Description;
-        }
-        public String Name;
-        public String Calories;
-        public String Description;
-    };
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -69,7 +56,7 @@ public class AddEntryDinner extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_entry_dinner);
+        setContentView(R.layout.activity_add_entry);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -98,7 +85,7 @@ public class AddEntryDinner extends AppCompatActivity {
         mFoodRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<com.cs180.team2.caloriecounter.FoodEntry> results = new ArrayList<com.cs180.team2.caloriecounter.FoodEntry>();
+                ArrayList<FoodEntry> results = new ArrayList<FoodEntry>();
                 int matches = 0;
 
                 for (DataSnapshot foodSnapshot: dataSnapshot.getChildren()) {
@@ -108,7 +95,7 @@ public class AddEntryDinner extends AppCompatActivity {
                         String User = foodSnapshot.child("User").getValue(String.class);
                         Long FoodCalories = foodSnapshot.child("Calories").getValue(Long.class);
                         String FoodDescription = foodSnapshot.child("Description").getValue(String.class);
-                        com.cs180.team2.caloriecounter.FoodEntry foodresult = new com.cs180.team2.caloriecounter.FoodEntry(Foodname, FoodCalories, FoodDescription, tag, User);
+                        FoodEntry foodresult = new FoodEntry(Foodname, FoodCalories, FoodDescription, tag, User);
                         //results += tag + "\n";
                         results.add(foodresult);
                         matches++;
@@ -123,7 +110,7 @@ public class AddEntryDinner extends AppCompatActivity {
                     toast.show();
                 }
 
-                FoodEntryAdapter adapter = new FoodEntryAdapter(AddEntryDinner.this, results);
+                FoodEntryAdapter adapter = new FoodEntryAdapter(AddEntry.this, results);
 
 
                 ListView textView2 = (ListView) findViewById(R.id.textView2);
@@ -164,7 +151,7 @@ public class AddEntryDinner extends AppCompatActivity {
      */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("AddEntryDinner Page") // TODO: Define a title for the content shown.
+                .setName("Add Entry") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();

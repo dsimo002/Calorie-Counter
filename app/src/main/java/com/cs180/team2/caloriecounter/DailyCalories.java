@@ -25,12 +25,16 @@ import java.util.Date;
 import static com.cs180.team2.caloriecounter.LoginActivity.username;
 import static com.cs180.team2.caloriecounter.R.id.textView7;
 
+
+
 public class DailyCalories extends AppCompatActivity {
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+
+    public static String choice = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,25 +131,29 @@ public class DailyCalories extends AppCompatActivity {
     }
 
     public void addEntryBreakfast(View view) {
-        Intent intent = new Intent(this, AddEntryBreakfast.class);
+        choice = "Breakfast";
+        Intent intent = new Intent(this, AddEntry.class);
         startActivity(intent);
 
     }
 
     public void addEntryLunch(View view) {
-        Intent intent = new Intent(this, AddEntryLunch.class);
+        choice = "Lunch";
+        Intent intent = new Intent(this, AddEntry.class);
         startActivity(intent);
 
     }
 
     public void addEntryDinner(View view) {
-        Intent intent = new Intent(this, AddEntryDinner.class);
+        choice = "Dinner";
+        Intent intent = new Intent(this, AddEntry.class);
         startActivity(intent);
 
     }
 
     public void addEntrySnacks(View view) {
-        Intent intent = new Intent(this, AddEntrySnacks.class);
+        choice = "Snacks";
+        Intent intent = new Intent(this, AddEntry.class);
         startActivity(intent);
 
     }
