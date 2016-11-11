@@ -1,6 +1,8 @@
 package com.cs180.team2.caloriecounter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +35,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.cs180.team2.caloriecounter.DailyCalories.choice;
 import static com.cs180.team2.caloriecounter.R.id.addcustomfoodbutton;
@@ -78,6 +86,7 @@ public class AddEntry extends AppCompatActivity {
 
 
     public void searchDatabase(View view) {
+
         EditText inputTxt = (EditText) findViewById(R.id.text);
         final String str = inputTxt.getText().toString().trim().toLowerCase();
 
@@ -85,16 +94,22 @@ public class AddEntry extends AppCompatActivity {
         mFoodRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                String tag = "";
+                String Foodname = "";
+                String User = "";
+                String FoodDescription = "";
+                Long FoodCalories;
+
                 ArrayList<FoodEntry> results = new ArrayList<FoodEntry>();
                 int matches = 0;
 
                 for (DataSnapshot foodSnapshot: dataSnapshot.getChildren()) {
-                    String tag = (String)foodSnapshot.child("Tag").getValue();
-                    String Foodname = foodSnapshot.getKey();
+                    tag = (String)foodSnapshot.child("Tag").getValue();
+                    Foodname = foodSnapshot.getKey();
                     if (tag.equals(str) || Foodname.toLowerCase().equals(str)) {
-                        String User = foodSnapshot.child("User").getValue(String.class);
-                        Long FoodCalories = foodSnapshot.child("Calories").getValue(Long.class);
-                        String FoodDescription = foodSnapshot.child("Description").getValue(String.class);
+                        User = foodSnapshot.child("User").getValue(String.class);
+                        FoodCalories = foodSnapshot.child("Calories").getValue(Long.class);
+                        FoodDescription = foodSnapshot.child("Description").getValue(String.class);
                         FoodEntry foodresult = new FoodEntry(Foodname, FoodCalories, FoodDescription, tag, User);
                         //results += tag + "\n";
                         results.add(foodresult);
@@ -108,13 +123,91 @@ public class AddEntry extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
+                } else {
+
+                    final FoodEntryAdapter adapter = new FoodEntryAdapter(AddEntry.this, results);
+
+
+                    ListView textView2 = (ListView) findViewById(R.id.textView2);
+                    textView2.setAdapter(adapter);
+
+                    textView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            final FoodEntry item = adapter.getItem(i);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AddEntry.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
+                            builder.setMessage("Add " + item.Name + " to daily log?"); //This dialog asks the user if they want to register a new user
+
+
+                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String Filename = DateFormat.getDateInstance().format(new Date());
+                                    Filename = Filename + "_" + username + ".txt";
+                                    File file = new File("data/data/com.caloriecounter/" + Filename);
+                                    if(!file.exists()) {
+                                        try {
+                                            file.createNewFile();
+                                            FileOutputStream outputStream = new FileOutputStream(file);
+                                            outputStream.write(item.Name.getBytes());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.write(item.Calories.byteValue());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.write(item.Description.getBytes());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.write(item.Tag.getBytes());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.write(item.User.getBytes());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.close();
+                                            Context context = getApplicationContext();
+                                            CharSequence text = item.Name + " added to " + choice + " log!";
+                                            int duration = Toast.LENGTH_SHORT;
+
+                                            Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                                            toast.show();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    else {
+                                        try {
+                                            FileOutputStream outputStream = new FileOutputStream(file);
+                                            outputStream.write(item.Name.getBytes());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.write(item.Calories.byteValue());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.write(item.Description.getBytes());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.write(item.Tag.getBytes());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.write(item.User.getBytes());
+                                            outputStream.write("\n".getBytes());
+                                            outputStream.close();
+                                            Context context = getApplicationContext();
+                                            CharSequence text = item.Name + " added to " + choice + " log!";
+                                            int duration = Toast.LENGTH_SHORT;
+
+                                            Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                                            toast.show();
+                                        } catch(IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                }
+                            });
+                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog
+                                }
+                            });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+
+                        }
+                    });
                 }
-
-                FoodEntryAdapter adapter = new FoodEntryAdapter(AddEntry.this, results);
-
-
-                ListView textView2 = (ListView) findViewById(R.id.textView2);
-                textView2.setAdapter(adapter);
             }
 
             @Override

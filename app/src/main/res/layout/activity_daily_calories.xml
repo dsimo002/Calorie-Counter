@@ -9,7 +9,6 @@
     tools:context="com.cs180.team2.caloriecounter.DailyCalories">
 
     <include layout="@layout/content_daily_calories"
-        android:layout_height="251dp"
         android:id="@+id/include" />
 
     <android.support.design.widget.AppBarLayout

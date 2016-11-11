@@ -34,10 +34,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".AddEntryBreakfast"
-            android:label="@string/title_activity_add_entry_breakfast"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SearchableActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -48,16 +44,8 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".AddEntryLunch"
-            android:label="@string/title_activity_add_entry_lunch"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AddEntryDinner"
-            android:label="@string/title_activity_add_entry_dinner"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AddEntrySnacks"
-            android:label="@string/title_activity_add_entry_snacks"
+            android:name=".AddEntry"
+            android:label="AddEntry"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegisterUser"
