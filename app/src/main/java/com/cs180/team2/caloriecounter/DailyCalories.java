@@ -19,6 +19,12 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -52,6 +58,33 @@ public class DailyCalories extends AppCompatActivity {
         textView.setTextSize(40);
         textView.setText(message);
 
+
+        TextView logtest = (TextView) findViewById(R.id.textView10);
+        String Filename = DateFormat.getDateInstance().format(new Date());
+        Filename = Filename + "_" + username + ".txt";
+        File file = new File("data/data/com.caloriecounter/" + Filename);
+        if(file.exists()) {
+            try {
+                InputStream in = openFileInput("data/data/com.caloriecounter/" + Filename);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line = reader.readLine();
+                logtest.setText(line);
+            } catch (FileNotFoundException e) {
+                Context context = getApplicationContext();
+                CharSequence text = "Log file not found!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                toast.show();
+            } catch (IOException e) {
+                Context context = getApplicationContext();
+                CharSequence text = "Log file not found!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                toast.show();
+            }
+        }
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_daily_calories);
         layout.addView(textView);
 

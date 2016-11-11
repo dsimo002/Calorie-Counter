@@ -1,13 +1,24 @@
 package com.cs180.team2.caloriecounter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import static com.cs180.team2.caloriecounter.LoginActivity.username;
+
 
 /**
  * Created by oakami on 11/3/16.
@@ -31,7 +42,7 @@ public class FoodEntryAdapter extends ArrayAdapter<FoodEntry> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         FoodEntry foods = getItem(position);
-        ViewHolder viewHolder; //view lookup cache stored in tag
+        final ViewHolder viewHolder; //view lookup cache stored in tag
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -56,4 +67,6 @@ public class FoodEntryAdapter extends ArrayAdapter<FoodEntry> {
         // Return the completed view to render on screen
         return convertView;
     }
+
+
 }
