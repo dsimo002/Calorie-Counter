@@ -52,6 +52,11 @@
             android:label="@string/title_activity_register_user"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".Graph"
+            android:label="Graph"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
             android:parentActivityName=".LoginActivity"

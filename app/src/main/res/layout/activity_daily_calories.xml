@@ -11,6 +11,16 @@
     <include layout="@layout/content_daily_calories"
         android:id="@+id/include" />
 
+    <Button
+        android:text="Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        app:layout_anchor="@+id/include"
+        android:onClick="logOut"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_gravity="top|left" />
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +35,7 @@
 
             <Button
                 android:text="Change Password"
-                android:layout_width="wrap_content"
+                android:layout_width="119dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/change_password_button"
                 android:onClick="changePassword"
@@ -45,14 +55,13 @@
                 android:layout_weight="1" />
 
             <Button
-                android:text="Logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button2"
+                android:text="View Your Stats"
+                android:layout_width="119dp"
                 app:layout_anchorGravity="top|right"
                 android:layout_gravity="center_vertical|left"
-                app:layout_anchor="@+id/include"
-                android:onClick="logOut"/>
+                android:layout_height="wrap_content"
+                android:onClick="viewStatsGraph"
+                android:id="@+id/statGraphButton" />
 
 
         </LinearLayout>

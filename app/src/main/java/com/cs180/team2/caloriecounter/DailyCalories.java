@@ -96,12 +96,15 @@ public class DailyCalories extends AppCompatActivity {
         TextView textViewUserName = (TextView) findViewById(textView7);
 
         Button mChangePassword = (Button) findViewById(R.id.change_password_button);
+        //Button statButton = (Button) findViewById(R.id.statGraphButton);
+
         boolean isGuest = false;
 
         if (!username.isEmpty())
         {
             textViewUserName.setText(usrnme);
             mChangePassword.setVisibility(View.VISIBLE);
+          //  statButton.setVisibility(View.VISIBLE);
         }
         else
         {
@@ -112,6 +115,8 @@ public class DailyCalories extends AppCompatActivity {
         if (isGuest)     //if sign in as guest, don't show change password
         {
             mChangePassword.setVisibility(View.INVISIBLE);
+            //statButton.setVisibility(View.INVISIBLE);
+
         }
         //View mChangePasswordView;
 
@@ -208,4 +213,11 @@ public class DailyCalories extends AppCompatActivity {
       Intent intent = new Intent(this, ChangePasswordActivity.class);
       startActivity(intent);
    }
+
+    public void viewStatsGraph(View view)
+    {
+        Intent intent = new Intent(this, Graph.class );
+        startActivity(intent);
+    }
+
 }
