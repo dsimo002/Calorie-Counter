@@ -87,27 +87,31 @@ public class DailyCalories extends AppCompatActivity {
         }
 
         TextView logtest = (TextView) findViewById(R.id.textView10);
-        if(file.exists()) {
-            try {
-                InputStream in = new FileInputStream(file);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                String line = reader.readLine();
-                line = "Name of first food entry in log file: " + line;
-                logtest.setText(line);
-            } catch (FileNotFoundException e) {
-                Context context = getApplicationContext();
-                CharSequence text = "Log file not found!";
-                int duration = Toast.LENGTH_SHORT;
+        if(username.isEmpty()) {
+            logtest.setVisibility(View.INVISIBLE);
+        } else {
+            if (file.exists()) {
+                try {
+                    InputStream in = new FileInputStream(file);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    String line = reader.readLine();
+                    line = "Name of first food entry in log file: " + line;
+                    logtest.setText(line);
+                } catch (FileNotFoundException e) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Log file not found!";
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
-                toast.show();
-            } catch (IOException e) {
-                Context context = getApplicationContext();
-                CharSequence text = "Log file not found!";
-                int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                    toast.show();
+                } catch (IOException e) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Log file not found!";
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                    toast.show();
+                }
             }
         }
 

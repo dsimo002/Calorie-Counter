@@ -115,7 +115,7 @@ public class AddFood extends AppCompatActivity {
         final String cal = getString(icalories);
         final String des = getString(idescription);
         final String tag = getString(itag);
-        final String user = LoginActivity.username.toString();
+        final String user = LoginActivity.username;
 
         final DatabaseReference foodbase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
 
