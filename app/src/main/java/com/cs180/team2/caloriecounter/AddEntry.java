@@ -165,7 +165,7 @@ public class AddEntry extends AppCompatActivity {
                                     if(!file.exists()) { // ALL ENTRIES NEED ALL CHILDREN OR ELSE APP CRASHES
                                         try {
                                             file.createNewFile();
-                                            FileOutputStream outputStream = new FileOutputStream(file);
+                                            FileOutputStream outputStream = new FileOutputStream(file, true);
                                             outputStream.write(item.Name.getBytes());
                                             outputStream.write("\n".getBytes());
                                             outputStream.write(item.Calories.byteValue());
