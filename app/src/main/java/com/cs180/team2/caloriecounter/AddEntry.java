@@ -135,7 +135,7 @@ public class AddEntry extends AppCompatActivity {
 
                     textView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {  // LOG FILE WRITING STARTS HERE
                             final FoodEntry item = adapter.getItem(i);
                             AlertDialog.Builder builder = new AlertDialog.Builder(AddEntry.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
                             builder.setMessage("Add " + item.Name + " to daily log?"); //This dialog asks the user if they want to register a new user
@@ -143,12 +143,12 @@ public class AddEntry extends AppCompatActivity {
 
                             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                                    File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS); //FILE DIRECTORY
 
 
                                     Calendar c = Calendar.getInstance();
                                     String Filename = Integer.toString(c.get(Calendar.MONTH)) + "." + Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "." + Integer.toString(c.get(Calendar.YEAR));
-                                    Filename = Filename + "_" + username + ".txt";
+                                    Filename = Filename + "_" + username + ".txt"; //FILENAME: MM.DD.YYYY_USERNAME.txt
                                     File file = new File(dir, Filename);
                                     if(!file.getParentFile().exists()) {
                                         if(file.getParentFile().mkdirs()) {
@@ -162,7 +162,7 @@ public class AddEntry extends AppCompatActivity {
                                         }
                                     }
 
-                                    if(!file.exists()) {
+                                    if(!file.exists()) { // ALL ENTRIES NEED ALL CHILDREN OR ELSE APP CRASHES
                                         try {
                                             file.createNewFile();
                                             FileOutputStream outputStream = new FileOutputStream(file);
