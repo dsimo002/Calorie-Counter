@@ -92,6 +92,7 @@ public class DailyCalories extends AppCompatActivity {
                 InputStream in = new FileInputStream(file);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                 String line = reader.readLine();
+                line = "Name of first food entry in log file: " + line;
                 logtest.setText(line);
             } catch (FileNotFoundException e) {
                 Context context = getApplicationContext();
