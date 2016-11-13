@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import static com.cs180.team2.caloriecounter.DailyCalories.choice;
@@ -73,7 +75,7 @@ public class AddEntry extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        Button customFood = (Button) findViewById(addcustomfoodbutton);
+        Button customFood = (Button) findViewById(R.id.addcustomfoodbutton);
         if(username.isEmpty())   //if guest user, don't allow them to add custom food
         {
             customFood.setVisibility(View.INVISIBLE);
@@ -141,9 +143,25 @@ public class AddEntry extends AppCompatActivity {
 
                             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    String Filename = DateFormat.getDateInstance().format(new Date());
+                                    File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+
+
+                                    Calendar c = Calendar.getInstance();
+                                    String Filename = Integer.toString(c.get(Calendar.MONTH)) + "." + Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "." + Integer.toString(c.get(Calendar.YEAR));
                                     Filename = Filename + "_" + username + ".txt";
-                                    File file = new File("data/data/com.caloriecounter/" + Filename);
+                                    File file = new File(dir, Filename);
+                                    if(!file.getParentFile().exists()) {
+                                        if(file.getParentFile().mkdirs()) {
+                                            System.out.println(file.getParentFile() + " created!");
+                                        }
+
+                                        try {
+                                            System.out.println(file.getCanonicalPath() + " about to be created!");
+                                        } catch(IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
                                     if(!file.exists()) {
                                         try {
                                             file.createNewFile();

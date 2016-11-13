@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,11 +22,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import static com.cs180.team2.caloriecounter.LoginActivity.username;
@@ -42,9 +45,9 @@ public class DailyCalories extends AppCompatActivity {
 
     public static String choice = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_calories);
@@ -58,14 +61,35 @@ public class DailyCalories extends AppCompatActivity {
         textView.setTextSize(40);
         textView.setText(message);
 
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_daily_calories);
+        layout.addView(textView);
+
+
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        Calendar c = Calendar.getInstance();
+        String Filename = Integer.toString(c.get(Calendar.MONTH)) + "." + Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "." + Integer.toString(c.get(Calendar.YEAR));
+        Filename = Filename + "_" + username + ".txt";
+        File file = new File(dir, Filename);
+        if(!file.getParentFile().exists()) {
+            if(file.getParentFile().mkdirs()) {
+                System.out.println(file.getParentFile() + " created!");
+            }
+
+            try {
+                System.out.println(file.getCanonicalPath() + " about to be created!");
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         TextView logtest = (TextView) findViewById(R.id.textView10);
-        String Filename = DateFormat.getDateInstance().format(new Date());
-        Filename = Filename + "_" + username + ".txt";
-        File file = new File("data/data/com.caloriecounter/" + Filename);
         if(file.exists()) {
             try {
-                InputStream in = openFileInput("data/data/com.caloriecounter/" + Filename);
+                InputStream in = new FileInputStream(file);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                 String line = reader.readLine();
                 logtest.setText(line);
@@ -85,8 +109,7 @@ public class DailyCalories extends AppCompatActivity {
                 toast.show();
             }
         }
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_daily_calories);
-        layout.addView(textView);
+
 
         String currentDateString = DateFormat.getDateInstance().format(new Date());
         TextView textView6 = (TextView) findViewById(R.id.textView6);
