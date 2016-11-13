@@ -136,93 +136,101 @@ public class AddEntry extends AppCompatActivity {
                     textView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {  // LOG FILE WRITING STARTS HERE
-                            final FoodEntry item = adapter.getItem(i);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(AddEntry.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
-                            builder.setMessage("Add " + item.Name + " to daily log?"); //This dialog asks the user if they want to register a new user
+                            if (username.isEmpty()) {
+                                Context context = getApplicationContext();
+                                CharSequence text = "Please login/register to track food and calories!";
+                                int duration = Toast.LENGTH_SHORT;
+
+                                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                                toast.show();
+                            } else {
+                                final FoodEntry item = adapter.getItem(i);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AddEntry.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
+                                builder.setMessage("Add " + item.Name + " to daily log?"); //This dialog asks the user if they want to register a new user
 
 
-                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS); //FILE DIRECTORY
+                                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS); //FILE DIRECTORY
 
 
-                                    Calendar c = Calendar.getInstance();
-                                    String Filename = Integer.toString(c.get(Calendar.MONTH)) + "." + Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "." + Integer.toString(c.get(Calendar.YEAR));
-                                    Filename = Filename + "_" + username + ".txt"; //FILENAME: MM.DD.YYYY_USERNAME.txt
-                                    File file = new File(dir, Filename);
-                                    if(!file.getParentFile().exists()) {
-                                        if(file.getParentFile().mkdirs()) {
-                                            System.out.println(file.getParentFile() + " created!");
+                                        Calendar c = Calendar.getInstance();
+                                        String Filename = Integer.toString(c.get(Calendar.MONTH)) + "." + Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "." + Integer.toString(c.get(Calendar.YEAR));
+                                        Filename = Filename + "_" + username + ".txt"; //FILENAME: MM.DD.YYYY_USERNAME.txt
+                                        File file = new File(dir, Filename);
+                                        if (!file.getParentFile().exists()) {
+                                            if (file.getParentFile().mkdirs()) {
+                                                System.out.println(file.getParentFile() + " created!");
+                                            }
+
+                                            try {
+                                                System.out.println(file.getCanonicalPath() + " about to be created!");
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
 
-                                        try {
-                                            System.out.println(file.getCanonicalPath() + " about to be created!");
-                                        } catch(IOException e) {
-                                            e.printStackTrace();
+                                        if (!file.exists()) { // ALL ENTRIES NEED ALL CHILDREN OR ELSE APP CRASHES
+                                            try {
+                                                file.createNewFile();
+                                                FileOutputStream outputStream = new FileOutputStream(file, true);
+                                                outputStream.write(item.Name.getBytes());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.write(item.Calories.byteValue());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.write(item.Description.getBytes());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.write(item.Tag.getBytes());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.write(item.User.getBytes());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.close();
+                                                Context context = getApplicationContext();
+                                                CharSequence text = item.Name + " added to " + choice + " log!";
+                                                int duration = Toast.LENGTH_SHORT;
+
+                                                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                                                toast.show();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        } else {
+                                            try {
+                                                FileOutputStream outputStream = new FileOutputStream(file);
+                                                outputStream.write(item.Name.getBytes());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.write(item.Calories.byteValue());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.write(item.Description.getBytes());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.write(item.Tag.getBytes());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.write(item.User.getBytes());
+                                                outputStream.write("\n".getBytes());
+                                                outputStream.close();
+                                                Context context = getApplicationContext();
+                                                CharSequence text = item.Name + " added to " + choice + " log!";
+                                                int duration = Toast.LENGTH_SHORT;
+
+                                                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                                                toast.show();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
+
                                     }
-
-                                    if(!file.exists()) { // ALL ENTRIES NEED ALL CHILDREN OR ELSE APP CRASHES
-                                        try {
-                                            file.createNewFile();
-                                            FileOutputStream outputStream = new FileOutputStream(file, true);
-                                            outputStream.write(item.Name.getBytes());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.write(item.Calories.byteValue());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.write(item.Description.getBytes());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.write(item.Tag.getBytes());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.write(item.User.getBytes());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.close();
-                                            Context context = getApplicationContext();
-                                            CharSequence text = item.Name + " added to " + choice + " log!";
-                                            int duration = Toast.LENGTH_SHORT;
-
-                                            Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
-                                            toast.show();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
+                                });
+                                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
                                     }
-                                    else {
-                                        try {
-                                            FileOutputStream outputStream = new FileOutputStream(file);
-                                            outputStream.write(item.Name.getBytes());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.write(item.Calories.byteValue());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.write(item.Description.getBytes());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.write(item.Tag.getBytes());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.write(item.User.getBytes());
-                                            outputStream.write("\n".getBytes());
-                                            outputStream.close();
-                                            Context context = getApplicationContext();
-                                            CharSequence text = item.Name + " added to " + choice + " log!";
-                                            int duration = Toast.LENGTH_SHORT;
+                                });
 
-                                            Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
-                                            toast.show();
-                                        } catch(IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
 
-                                }
-                            });
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // User cancelled the dialog
-                                }
-                            });
-
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-
+                            }
                         }
                     });
                 }
