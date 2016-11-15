@@ -61,11 +61,13 @@ public class DailyCalories extends AppCompatActivity {
             File dirCurrent = dirlist.pop();
 
             File[] fileList = dirCurrent.listFiles();
-            for (File aFileList : fileList) {
-                if (aFileList.isDirectory())
-                    dirlist.push(aFileList);
+            File aFile = new File("");
+            for (int i = 0; i < fileList.length; i++) {
+                aFile = fileList[i];
+                if (aFile.isDirectory())
+                    dirlist.push(aFile);
                 else
-                    files.add(aFileList);
+                    files.add(aFile);
             }
         }
 
@@ -96,14 +98,15 @@ public class DailyCalories extends AppCompatActivity {
         if(!dir.exists()) {
             dir.mkdirs();
         }
-
-        Calendar time = Calendar.getInstance(); // Clean up log files older than a week
-        time.add(Calendar.DAY_OF_YEAR,-7);
-        ArrayList<File> filelist = getAllFilesInDir(dir);
-        for(File fileentry:filelist) {
-            Date lastModified = new Date(fileentry.lastModified());
-            if(lastModified.before(time.getTime())) {
-                fileentry.delete();
+        if(dir.listFiles() != null) {
+            Calendar time = Calendar.getInstance(); // Clean up log files older than a week
+            time.add(Calendar.DAY_OF_YEAR, -7);
+            ArrayList<File> filelist = getAllFilesInDir(dir);
+            for (File fileentry : filelist) {
+                Date lastModified = new Date(fileentry.lastModified());
+                if (lastModified.before(time.getTime())) {
+                    fileentry.delete();
+                }
             }
         }
 
