@@ -151,7 +151,7 @@ public class AddEntry extends AppCompatActivity {
 
                                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS); //FILE DIRECTORY
+                                        File dir = Environment.getDataDirectory(); //FILE DIRECTORY
 
 
                                         Calendar c = Calendar.getInstance();
@@ -184,6 +184,8 @@ public class AddEntry extends AppCompatActivity {
                                                 outputStream.write("\n".getBytes());
                                                 outputStream.write(item.User.getBytes());
                                                 outputStream.write("\n".getBytes());
+                                                outputStream.write(choice.getBytes());
+                                                outputStream.write("\n\n".getBytes());
                                                 outputStream.close();
                                                 Context context = getApplicationContext();
                                                 CharSequence text = item.Name + " added to " + choice + " log!";
@@ -207,6 +209,8 @@ public class AddEntry extends AppCompatActivity {
                                                 outputStream.write("\n".getBytes());
                                                 outputStream.write(item.User.getBytes());
                                                 outputStream.write("\n".getBytes());
+                                                outputStream.write(choice.getBytes());
+                                                outputStream.write("\n\n".getBytes());
                                                 outputStream.close();
                                                 Context context = getApplicationContext();
                                                 CharSequence text = item.Name + " added to " + choice + " log!";

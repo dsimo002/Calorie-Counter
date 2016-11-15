@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Stack;
 
 import static com.cs180.team2.caloriecounter.LoginActivity.username;
 import static com.cs180.team2.caloriecounter.R.id.textView7;
@@ -44,6 +46,31 @@ public class DailyCalories extends AppCompatActivity {
     private GoogleApiClient client;
 
     public static String choice = "";
+
+    public static ArrayList<File> getAllFilesInDir(File dir) {
+        if (dir == null)
+            return null;
+
+        ArrayList<File> files = new ArrayList<File>();
+
+        Stack<File> dirlist = new Stack<File>();
+        dirlist.clear();
+        dirlist.push(dir);
+
+        while (!dirlist.isEmpty()) {
+            File dirCurrent = dirlist.pop();
+
+            File[] fileList = dirCurrent.listFiles();
+            for (File aFileList : fileList) {
+                if (aFileList.isDirectory())
+                    dirlist.push(aFileList);
+                else
+                    files.add(aFileList);
+            }
+        }
+
+        return files;
+    }
 
 
     @Override
@@ -65,12 +92,23 @@ public class DailyCalories extends AppCompatActivity {
         layout.addView(textView);
 
 
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        File dir = Environment.getDataDirectory();
         if(!dir.exists()) {
             dir.mkdirs();
         }
 
-        Calendar c = Calendar.getInstance();
+        Calendar time = Calendar.getInstance(); // Clean up log files older than a week
+        time.add(Calendar.DAY_OF_YEAR,-7);
+        ArrayList<File> filelist = getAllFilesInDir(dir);
+        for(File fileentry:filelist) {
+            Date lastModified = new Date(fileentry.lastModified());
+            if(lastModified.before(time.getTime())) {
+                fileentry.delete();
+            }
+        }
+
+
+        Calendar c = Calendar.getInstance(); //create log file for current day if it doesn't exist already
         String Filename = Integer.toString(c.get(Calendar.MONTH)) + "." + Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "." + Integer.toString(c.get(Calendar.YEAR));
         Filename = Filename + "_" + username + ".txt";
         File file = new File(dir, Filename);
@@ -86,34 +124,7 @@ public class DailyCalories extends AppCompatActivity {
             }
         }
 
-        TextView logtest = (TextView) findViewById(R.id.textView10);
-        if(username.isEmpty()) {
-            logtest.setVisibility(View.INVISIBLE);
-        } else {
-            if (file.exists()) {
-                try {
-                    InputStream in = new FileInputStream(file);
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    String line = reader.readLine();
-                    line = "Name of first food entry in log file: " + line;
-                    logtest.setText(line);
-                } catch (FileNotFoundException e) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Log file not found!";
-                    int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
-                    toast.show();
-                } catch (IOException e) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Log file not found!";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
-                    toast.show();
-                }
-            }
-        }
 
 
         String currentDateString = DateFormat.getDateInstance().format(new Date());
@@ -154,6 +165,8 @@ public class DailyCalories extends AppCompatActivity {
                     changePassword();
                 }
             });
+
+
 
             // ATTENTION: This was auto-generated to implement the App Indexing API.
             // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -245,6 +258,11 @@ public class DailyCalories extends AppCompatActivity {
     public void viewStatsGraph(View view)
     {
         Intent intent = new Intent(this, Graph.class );
+        startActivity(intent);
+    }
+
+    public void log() {
+        Intent intent = new Intent(this, Log.class);
         startActivity(intent);
     }
 

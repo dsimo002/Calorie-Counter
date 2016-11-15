@@ -13,4 +13,22 @@
         android:layout_width="match_parent"
         android:layout_height="200dip"
         android:id="@+id/graph" />
+    <Button
+        android:text="Change Calorie Goal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/changeGoal_button" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TEST_view"
+        android:layout_weight="0.37" />
+
+    <Button
+        android:text="Add Calories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addCalories_button" />
 </LinearLayout>
