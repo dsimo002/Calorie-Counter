@@ -1,9 +1,21 @@
 package com.cs180.team2.caloriecounter;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -13,64 +25,205 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import static android.R.attr.resource;
+import static com.cs180.team2.caloriecounter.DailyCalories.cal_limit;
+import static com.cs180.team2.caloriecounter.LoginActivity.username;
+
 /**
  * Created by briannguyen on 11/11/2016.
  */
 
 public class Graph extends AppCompatActivity {
+    static LineGraphSeries<DataPoint> line = new LineGraphSeries<>(new DataPoint[]{   //change y according to calorie goal
+            new DataPoint(0, Integer.parseInt(cal_limit)),
+            new DataPoint(150, Integer.parseInt(cal_limit))
+
+    });
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stat_graph);
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
+        Long breakfasttotal = Long.valueOf(0);
+        Long lunchtotal = Long.valueOf(0);
+        Long dinnertotal = Long.valueOf(0);
+        Long snackstotal = Long.valueOf(0);
+        Long grandtotal = Long.valueOf(0);
+
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        staticLabelsFormatter.setHorizontalLabels(new String[] {"Mon", "Tues", "Wed", "Thur", "Fri", "Sat","Sun"});
+        staticLabelsFormatter.setHorizontalLabels(new String[]{"", "Breakfast", "Lunch", "Dinner", "Snacks", "Total", ""});
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        graph.getGridLabelRenderer().setTextSize(20f);
 
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {   //change only y values please, y values are total calories consumed
-                new DataPoint(0, 10),   //Monday
-                new DataPoint(1, 5),    //Tuesday
-                new DataPoint(2, 6),    //Wednesday
-                new DataPoint(3, 1),    //Thursday
-                new DataPoint(4, 12),   //Friday
-                new DataPoint(5, 6),    //Saturday
-                new DataPoint(6, 0)     //Sunday
+        final String root = Environment.getExternalStorageDirectory().toString();
+        File dir = new File(root + "/daily_logs"); //FILE DIRECTORY
 
-        });
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
 
-        LineGraphSeries<DataPoint> line = new LineGraphSeries<>(new DataPoint[] {   //change y according to calorie goal
-                new DataPoint(0,8),
-                new DataPoint(1,8),
-                new DataPoint(2,8),
-                new DataPoint(3,8),
-                new DataPoint(4,8),
-                new DataPoint(5,8),
-                new DataPoint(6,8)
+        Calendar c = Calendar.getInstance();
+        String Filename = Integer.toString(c.get(Calendar.MONTH)) + "." + Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "." + Integer.toString(c.get(Calendar.YEAR));
+        Filename = Filename + "_" + username + ".txt";
+        File file = new File(dir, Filename);
+        if (!file.getParentFile().exists()) {
+            if (file.getParentFile().mkdirs()) {
+                System.out.println(file.getParentFile() + " created!");
+            }
+
+            try {
+                System.out.println(file.getCanonicalPath() + " about to be created!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        ArrayList<FoodEntry> breakfast = new ArrayList<FoodEntry>();
+        ArrayList<FoodEntry> lunch = new ArrayList<FoodEntry>();
+        ArrayList<FoodEntry> dinner = new ArrayList<FoodEntry>();
+        ArrayList<FoodEntry> snacks = new ArrayList<FoodEntry>();
+
+
+        if (file.exists()) {
+            try {
+                InputStream in = new FileInputStream(file);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+
+                String line = reader.readLine();
+                while (line != null) {
+                    FoodEntry tempFood = new FoodEntry("", Long.valueOf(0), "", "", "");
+                    tempFood.Name = line;
+                    tempFood.Calories = Long.valueOf(reader.readLine());
+                    tempFood.Description = reader.readLine();
+                    tempFood.Tag = reader.readLine();
+                    tempFood.User = reader.readLine();
+                    tempFood.Tag = reader.readLine();
+                    line = reader.readLine();
+                    if (tempFood.Tag.equals("Breakfast")) {
+                        breakfast.add(tempFood);
+                    } else if (tempFood.Tag.equals("Lunch")) {
+                        lunch.add(tempFood);
+                    } else if (tempFood.Tag.equals("Dinner")) {
+                        dinner.add(tempFood);
+                    } else if (tempFood.Tag.equals("Snacks")) {
+                        snacks.add(tempFood);
+                    }
+                }
+
+                for (int i = 0; i < breakfast.size(); i++) {
+                    breakfasttotal = breakfasttotal + breakfast.get(i).Calories;
+                }
+
+                for (int i = 0; i < lunch.size(); i++) {
+                    lunchtotal = lunchtotal + lunch.get(i).Calories;
+                }
+
+
+                for (int i = 0; i < dinner.size(); i++) {
+                    dinnertotal = dinnertotal + dinner.get(i).Calories;
+                }
+
+
+                for (int i = 0; i < snacks.size(); i++) {
+                    snackstotal = snackstotal + snacks.get(i).Calories;
+                }
+
+                grandtotal = breakfasttotal + lunchtotal + dinnertotal + snackstotal;
+
+            } catch (FileNotFoundException e) {
+                Context context = getApplicationContext();
+                CharSequence text = "Log file not found!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                toast.show();
+            } catch (IOException e) {
+                Context context = getApplicationContext();
+                CharSequence text = "Log file not found!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                toast.show();
+            }
+        }
+
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{   //change only y values please, y values are total calories consumed
+
+                new DataPoint(20, breakfasttotal),   //Breakfast
+                new DataPoint(40, lunchtotal),    //Lunch
+                new DataPoint(60, dinnertotal),    //Dinner
+                new DataPoint(80, snackstotal),    //Snacks
+                new DataPoint(100, grandtotal),   //Total Calorie Consumption
 
         });
 
         series.setDrawValuesOnTop(true);
         series.setTitle("Calorie Intake");
-        series.setColor(Color.RED);
+        series.setColor(Color.CYAN);
         series.setValuesOnTopColor(Color.RED);
 
         graph.addSeries(series);
         graph.addSeries(line);
 
         line.setTitle("Calorie Goal");
-        line.setColor(Color.BLUE);
+        line.setColor(Color.RED);
 
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
 
 // styling
-        series.setSpacing(25);
+        series.setSpacing(20);
 
+        Button changeGoalPrompt = (Button) findViewById(R.id.changeGoal_button);
+        EditText inputNewGoal = (EditText) findViewById(R.id.changeGoalInput);
+        final Editable x = inputNewGoal.getText();
+
+        changeGoalPrompt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(x.toString() != "") {
+
+                    cal_limit = x.toString();
+
+                    line.resetData(new DataPoint[]{   //change y according to calorie goal
+                            new DataPoint(0, Integer.parseInt(cal_limit)),
+                            new DataPoint(150, Integer.parseInt(cal_limit))});
+
+                    String root = Environment.getExternalStorageDirectory().toString(); //ROOT DIRECTORY
+                    File goaldir = new File(root + "/calorie_goal");  //START CALORIE GOAL FILE CREATION/READ FOR USER'S CALORIE GOAL
+                    String goalfilename = username + ".txt";
+                    File goalfile = new File(goaldir, goalfilename);
+
+
+                    if (!goalfile.exists()) { //MAKE USER GOAL FILE IF IT DOESN'T EXIST
+                        try {
+                            goalfile.createNewFile();
+                            FileOutputStream outputStream = new FileOutputStream(goalfile);
+                            outputStream.write(cal_limit.getBytes());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
     }
-
 }

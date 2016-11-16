@@ -5,14 +5,14 @@
     android:weightSum="1">
 
     <TextView
-        android:text="Week Calorie Intake Stats"
+        android:text="Calories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView12" />
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
-        android:layout_height="200dip"
+        android:layout_height="298dp"
         android:id="@+id/graph" />
 
     <Button
@@ -20,6 +20,16 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/changeGoal_button" />
+        android:id="@+id/changeGoal_button"
+        android:layout_weight="0.01" />
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/changeGoalInput"
+            android:layout_weight="0.03" />
+
 
 </LinearLayout>
