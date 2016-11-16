@@ -66,28 +66,28 @@ public class Log extends AppCompatActivity {
                 try {
                     InputStream in = new FileInputStream(file);
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    FoodEntry tempFood = new FoodEntry("", Long.valueOf(0), "", "", "");
+
 
                     String line = reader.readLine();
                     while(line != null) {
+                        FoodEntry tempFood = new FoodEntry("", Long.valueOf(0), "", "", "");
                         tempFood.Name = line;
                         tempFood.Calories = Long.valueOf(reader.readLine());
                         tempFood.Description = reader.readLine();
                         tempFood.Tag = reader.readLine();
                         tempFood.User = reader.readLine();
                         tempFood.Tag = reader.readLine();
-                        reader.readLine();
                         line = reader.readLine();
-                        if(tempFood.Tag == "Breakfast") {
+                        if(tempFood.Tag.equals("Breakfast")) {
                             breakfast.add(tempFood);
                         }
-                        else if(tempFood.Tag == "Lunch") {
+                        else if(tempFood.Tag.equals("Lunch")) {
                             lunch.add(tempFood);
                         }
-                        else if(tempFood.Tag == "Dinner") {
+                        else if(tempFood.Tag.equals("Dinner")) {
                             dinner.add(tempFood);
                         }
-                        else if(tempFood.Tag == "Snacks") {
+                        else if(tempFood.Tag.equals("Snacks")) {
                             snacks.add(tempFood);
                         }
                     }
@@ -97,12 +97,18 @@ public class Log extends AppCompatActivity {
                         log.append("Calories: " + breakfast.get(i).Calories.toString() + "\n");
                         log.append("Description: " + breakfast.get(i).Description + "\n\n");
                     }
+                    if(breakfast.size() == 0) {
+                        log.append("Nothing in breakfast!\n");
+                    }
 
                     log.append("Lunch\n\n");
                     for(int i = 0; i < lunch.size(); i++) {
                         log.append("Name: " + lunch.get(i).Name + "\n");
                         log.append("Calories: " + lunch.get(i).Calories.toString() + "\n");
                         log.append("Description: " + lunch.get(i).Description + "\n\n");
+                    }
+                    if(breakfast.size() == 0) {
+                        log.append("Nothing in lunch!\n");
                     }
 
                     log.append("Dinner\n\n");
@@ -111,12 +117,18 @@ public class Log extends AppCompatActivity {
                         log.append("Calories: " + dinner.get(i).Calories.toString() + "\n");
                         log.append("Description: " + dinner.get(i).Description + "\n\n");
                     }
+                    if(breakfast.size() == 0) {
+                        log.append("Nothing in dinner!\n");
+                    }
 
                     log.append("Snacks\n\n");
                     for(int i = 0; i < snacks.size(); i++) {
                         log.append("Name: " + snacks.get(i).Name + "\n");
                         log.append("Calories: " + snacks.get(i).Calories.toString() + "\n");
                         log.append("Description: " + snacks.get(i).Description + "\n\n");
+                    }
+                    if(breakfast.size() == 0) {
+                        log.append("Nothing in snacks!\n");
                     }
 
                 } catch (FileNotFoundException e) {
