@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -46,8 +47,9 @@ public class DailyCalories extends AppCompatActivity {
     private GoogleApiClient client;
 
     public static String choice = "";
+    public static String cal_limit = ""; //CALORIE LIMIT GLOBAL STRING
 
-    public static ArrayList<File> getAllFilesInDir(File dir) {
+    public static ArrayList<File> getAllFilesInDir(File dir) { //GET ALL FILES IN DIRECTORY FUNCTION
         if (dir == null)
             return null;
 
@@ -93,9 +95,47 @@ public class DailyCalories extends AppCompatActivity {
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_daily_calories);
         layout.addView(textView);
 
+        String root = Environment.getExternalStorageDirectory().toString(); //ROOT DIRECTORY
 
-        String root = Environment.getExternalStorageDirectory().toString();
-        File dir = new File(root + "/daily_logs"); //FILE DIRECTORY
+        File goaldir = new File(root + "/calorie_goal");  //START CALORIE GOAL FILE CREATION/READ FOR USER'S CALORIE GOAL
+        if(!goaldir.exists()) {
+            goaldir.mkdirs();
+        }
+        String goalfilename = username + ".txt";
+        File goalfile = new File(goaldir, goalfilename);
+        if(!goalfile.exists()) { //MAKE USER GOAL FILE IF IT DOESN'T EXIST
+            try {
+                goalfile.createNewFile();
+                FileOutputStream outputStream = new FileOutputStream(goalfile);
+                outputStream.write("2000".getBytes());
+                cal_limit = "2000";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try { //ELSE READ EXISTING GOAL AND MAKE IT THE GLOBAL GOAL VARIABLE
+                InputStream in = new FileInputStream(goalfile);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                cal_limit = reader.readLine();
+            } catch (FileNotFoundException e) {
+                Context context = getApplicationContext();
+                CharSequence text = "Calorie limit file not found!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                toast.show();
+            } catch (IOException e) {
+                Context context = getApplicationContext();
+                CharSequence text = "Calorie limit file not found!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
+                toast.show();
+            }
+        }
+
+
+        File dir = new File(root + "/daily_logs"); //DAILY LOG FILE DIRECTORY
         if(!dir.exists()) {
             dir.mkdirs();
         }
@@ -131,11 +171,11 @@ public class DailyCalories extends AppCompatActivity {
 
 
 
-        String currentDateString = DateFormat.getDateInstance().format(new Date());
+        String currentDateString = DateFormat.getDateInstance().format(new Date());  //OUTPUT CURRENT DATE
         TextView textView6 = (TextView) findViewById(R.id.textView6);
         textView6.setText(currentDateString);
 
-        String usrnme = "Welcome back, " + username.toString() + "!";
+        String usrnme = "Welcome back, " + username.toString() + "!"; //GREET USER
         TextView textViewUserName = (TextView) findViewById(textView7);
 
         Button mChangePassword = (Button) findViewById(R.id.change_password_button);

@@ -91,12 +91,19 @@ public class Log extends AppCompatActivity {
                             snacks.add(tempFood);
                         }
                     }
+                    Long breakfasttotal = Long.valueOf(0);
+                    Long lunchtotal = Long.valueOf(0);
+                    Long dinnertotal = Long.valueOf(0);
+                    Long snackstotal = Long.valueOf(0);
+                    Long grandtotal = Long.valueOf(0);
                     log.setText("Breakfast\n\n");
                     for(int i = 0; i < breakfast.size(); i++) {
                         log.append("Name: " + breakfast.get(i).Name + "\n");
                         log.append("Calories: " + breakfast.get(i).Calories.toString() + "\n");
                         log.append("Description: " + breakfast.get(i).Description + "\n\n");
+                        breakfasttotal = breakfasttotal + breakfast.get(i).Calories;
                     }
+                    log.append("Total Calories for Breakfast: " + breakfasttotal.toString() + "\n\n");
                     if(breakfast.size() == 0) {
                         log.append("Nothing in breakfast!\n");
                     }
@@ -106,7 +113,9 @@ public class Log extends AppCompatActivity {
                         log.append("Name: " + lunch.get(i).Name + "\n");
                         log.append("Calories: " + lunch.get(i).Calories.toString() + "\n");
                         log.append("Description: " + lunch.get(i).Description + "\n\n");
+                        lunchtotal = lunchtotal + lunch.get(i).Calories;
                     }
+                    log.append("Total Calories for Lunch: " + lunchtotal.toString() + "\n\n");
                     if(breakfast.size() == 0) {
                         log.append("Nothing in lunch!\n");
                     }
@@ -116,7 +125,9 @@ public class Log extends AppCompatActivity {
                         log.append("Name: " + dinner.get(i).Name + "\n");
                         log.append("Calories: " + dinner.get(i).Calories.toString() + "\n");
                         log.append("Description: " + dinner.get(i).Description + "\n\n");
+                        dinnertotal = dinnertotal + dinner.get(i).Calories;
                     }
+                    log.append("Total Calories for Dinner: " + dinnertotal.toString() + "\n\n");
                     if(breakfast.size() == 0) {
                         log.append("Nothing in dinner!\n");
                     }
@@ -126,10 +137,14 @@ public class Log extends AppCompatActivity {
                         log.append("Name: " + snacks.get(i).Name + "\n");
                         log.append("Calories: " + snacks.get(i).Calories.toString() + "\n");
                         log.append("Description: " + snacks.get(i).Description + "\n\n");
+                        snackstotal = snackstotal + snacks.get(i).Calories;
                     }
+                    log.append("Total Calories for Snacks: " + snackstotal.toString() + "\n\n");
                     if(breakfast.size() == 0) {
                         log.append("Nothing in snacks!\n");
                     }
+                    grandtotal = breakfasttotal + lunchtotal + dinnertotal + snackstotal;
+                    log.append("Total Calories consumed today: " + grandtotal.toString());
 
                 } catch (FileNotFoundException e) {
                     Context context = getApplicationContext();
