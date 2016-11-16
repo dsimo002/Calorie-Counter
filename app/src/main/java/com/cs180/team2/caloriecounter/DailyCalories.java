@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -91,6 +92,7 @@ public class DailyCalories extends AppCompatActivity {
         TextView textView = new TextView(this);
         textView.setTextSize(40);
         textView.setText(message);
+
 
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_daily_calories);
         layout.addView(textView);
@@ -179,7 +181,7 @@ public class DailyCalories extends AppCompatActivity {
         TextView textViewUserName = (TextView) findViewById(textView7);
 
         Button mChangePassword = (Button) findViewById(R.id.change_password_button);
-        //Button statButton = (Button) findViewById(R.id.statGraphButton);
+        Button statButton = (Button) findViewById(R.id.statGraphButton);
 
         Button logButton = (Button) findViewById(R.id.button8);
 
@@ -189,7 +191,7 @@ public class DailyCalories extends AppCompatActivity {
         {
             textViewUserName.setText(usrnme);
             mChangePassword.setVisibility(View.VISIBLE);
-          //  statButton.setVisibility(View.VISIBLE);
+            statButton.setVisibility(View.VISIBLE);
         }
         else
         {
@@ -201,7 +203,7 @@ public class DailyCalories extends AppCompatActivity {
         {
             mChangePassword.setVisibility(View.INVISIBLE);
             logButton.setVisibility(View.INVISIBLE);
-            //statButton.setVisibility(View.INVISIBLE);
+            statButton.setVisibility(View.INVISIBLE);
 
         }
         //View mChangePasswordView;
