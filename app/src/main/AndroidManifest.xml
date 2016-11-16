@@ -59,7 +59,6 @@
             android:name=".Graph"
             android:label="Graph"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
@@ -72,9 +71,9 @@
         <activity
             android:name=".AddFood"
             android:label="@string/title_activity_add_food"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ChangePasswordActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".Log"></activity>
     </application>
 
 </manifest>

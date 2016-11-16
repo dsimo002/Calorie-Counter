@@ -7,6 +7,8 @@
 /build
 /captures
 .externalNativeBuild
+/.idea
+.idea
 
 .idea/vcs.xml
 
@@ -17,3 +19,11 @@
 .idea/vcs.xml
 
 *.log
+
+.idea/gradle.xml
+
+.idea/gradle.xml
+
+.idea/gradle.xml
+
+.idea/gradle.xml

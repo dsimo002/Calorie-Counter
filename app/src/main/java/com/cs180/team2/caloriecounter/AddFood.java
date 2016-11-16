@@ -117,7 +117,7 @@ public class AddFood extends AppCompatActivity {
         final String tag = getString(itag);
         final String user = LoginActivity.username;
 
-        final DatabaseReference foodbase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
+        final DatabaseReference foodbase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/Food");
 
         foodbase.child(fname).setValue(new Foodentry(Integer.parseInt(cal), des, tag, user));
         Context context = getApplicationContext();

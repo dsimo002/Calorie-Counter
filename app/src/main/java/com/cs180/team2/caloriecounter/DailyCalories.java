@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Stack;
 
 import static com.cs180.team2.caloriecounter.LoginActivity.username;
 import static com.cs180.team2.caloriecounter.R.id.textView7;
@@ -44,6 +46,33 @@ public class DailyCalories extends AppCompatActivity {
     private GoogleApiClient client;
 
     public static String choice = "";
+
+    public static ArrayList<File> getAllFilesInDir(File dir) {
+        if (dir == null)
+            return null;
+
+        ArrayList<File> files = new ArrayList<File>();
+
+        Stack<File> dirlist = new Stack<File>();
+        dirlist.clear();
+        dirlist.push(dir);
+
+        while (!dirlist.isEmpty()) {
+            File dirCurrent = dirlist.pop();
+
+            File[] fileList = dirCurrent.listFiles();
+            File aFile = new File("");
+            for (int i = 0; i < fileList.length; i++) {
+                aFile = fileList[i];
+                if (aFile.isDirectory())
+                    dirlist.push(aFile);
+                else
+                    files.add(aFile);
+            }
+        }
+
+        return files;
+    }
 
 
     @Override
@@ -65,12 +94,25 @@ public class DailyCalories extends AppCompatActivity {
         layout.addView(textView);
 
 
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        String root = Environment.getExternalStorageDirectory().toString();
+        File dir = new File(root + "/daily_logs"); //FILE DIRECTORY
         if(!dir.exists()) {
             dir.mkdirs();
         }
+        if(dir.listFiles() != null) {
+            Calendar time = Calendar.getInstance(); // Clean up log files older than a week
+            time.add(Calendar.DAY_OF_YEAR, -7);
+            ArrayList<File> filelist = getAllFilesInDir(dir);
+            for (File fileentry : filelist) {
+                Date lastModified = new Date(fileentry.lastModified());
+                if (lastModified.before(time.getTime())) {
+                    fileentry.delete();
+                }
+            }
+        }
 
-        Calendar c = Calendar.getInstance();
+
+        Calendar c = Calendar.getInstance(); //create log file for current day if it doesn't exist already
         String Filename = Integer.toString(c.get(Calendar.MONTH)) + "." + Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "." + Integer.toString(c.get(Calendar.YEAR));
         Filename = Filename + "_" + username + ".txt";
         File file = new File(dir, Filename);
@@ -86,34 +128,7 @@ public class DailyCalories extends AppCompatActivity {
             }
         }
 
-        TextView logtest = (TextView) findViewById(R.id.textView10);
-        if(username.isEmpty()) {
-            logtest.setVisibility(View.INVISIBLE);
-        } else {
-            if (file.exists()) {
-                try {
-                    InputStream in = new FileInputStream(file);
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    String line = reader.readLine();
-                    line = "Name of first food entry in log file: " + line;
-                    logtest.setText(line);
-                } catch (FileNotFoundException e) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Log file not found!";
-                    int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
-                    toast.show();
-                } catch (IOException e) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Log file not found!";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration); //Chanho: Toast is a popup notification that disappears automatically after a period of time
-                    toast.show();
-                }
-            }
-        }
 
 
         String currentDateString = DateFormat.getDateInstance().format(new Date());
@@ -125,6 +140,8 @@ public class DailyCalories extends AppCompatActivity {
 
         Button mChangePassword = (Button) findViewById(R.id.change_password_button);
         //Button statButton = (Button) findViewById(R.id.statGraphButton);
+
+        Button logButton = (Button) findViewById(R.id.button8);
 
         boolean isGuest = false;
 
@@ -143,6 +160,7 @@ public class DailyCalories extends AppCompatActivity {
         if (isGuest)     //if sign in as guest, don't show change password
         {
             mChangePassword.setVisibility(View.INVISIBLE);
+            logButton.setVisibility(View.INVISIBLE);
             //statButton.setVisibility(View.INVISIBLE);
 
         }
@@ -154,6 +172,8 @@ public class DailyCalories extends AppCompatActivity {
                     changePassword();
                 }
             });
+
+
 
             // ATTENTION: This was auto-generated to implement the App Indexing API.
             // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -168,7 +188,7 @@ public class DailyCalories extends AppCompatActivity {
         Thing object = new Thing.Builder()
                 .setName("Daily Calories Page")
                 // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("https://caloriecounter-93b96.firebaseio.com/"))
+                .setUrl(Uri.parse("https://kaloriekounterk.firebaseio.com/"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)
                 .setObject(object)
@@ -245,6 +265,11 @@ public class DailyCalories extends AppCompatActivity {
     public void viewStatsGraph(View view)
     {
         Intent intent = new Intent(this, Graph.class );
+        startActivity(intent);
+    }
+
+    public void startLog(View view) {
+        Intent intent = new Intent(this, Log.class);
         startActivity(intent);
     }
 
