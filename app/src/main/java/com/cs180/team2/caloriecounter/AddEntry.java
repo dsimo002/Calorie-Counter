@@ -186,7 +186,7 @@ public class AddEntry extends AppCompatActivity {
                                                 outputStream.write(item.User.getBytes());
                                                 outputStream.write("\n".getBytes());
                                                 outputStream.write(choice.getBytes());
-                                                outputStream.write("\n\n".getBytes());
+                                                outputStream.write("\n".getBytes());
                                                 outputStream.close();
                                                 Context context = getApplicationContext();
                                                 CharSequence text = item.Name + " added to " + choice + " log!";
@@ -199,7 +199,7 @@ public class AddEntry extends AppCompatActivity {
                                             }
                                         } else {
                                             try {
-                                                FileOutputStream outputStream = new FileOutputStream(file);
+                                                FileOutputStream outputStream = new FileOutputStream(file, true);
                                                 outputStream.write(item.Name.getBytes());
                                                 outputStream.write("\n".getBytes());
                                                 outputStream.write(item.Calories.toString().getBytes());
@@ -211,7 +211,7 @@ public class AddEntry extends AppCompatActivity {
                                                 outputStream.write(item.User.getBytes());
                                                 outputStream.write("\n".getBytes());
                                                 outputStream.write(choice.getBytes());
-                                                outputStream.write("\n\n".getBytes());
+                                                outputStream.write("\n".getBytes());
                                                 outputStream.close();
                                                 Context context = getApplicationContext();
                                                 CharSequence text = item.Name + " added to " + choice + " log!";
