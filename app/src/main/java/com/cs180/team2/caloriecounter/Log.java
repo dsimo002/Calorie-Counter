@@ -3,6 +3,7 @@ package com.cs180.team2.caloriecounter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -156,7 +157,8 @@ public class Log extends AppCompatActivity {
                         builder.setMessage("Warning: You are " + diff.toString() + " calories over your limit!" ); //This dialog asks the user if they want to
                         builder.setPositiveButton("Whoops", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //do something funny like play sad_trombone.mp3 here?
+                                MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.priceisrighthorn);
+                                mp.start();
                             }
                         });
                         AlertDialog dialog = builder.create();
@@ -167,12 +169,14 @@ public class Log extends AppCompatActivity {
                         Long diff = Long.parseLong(cal_limit) - grandtotal;
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(Log.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
-                        builder.setMessage("Warning: You are only" + diff.toString() + " calories from going over your limit!" ); //This dialog asks the user if they want to
+                        builder.setMessage("Warning: You are only " + diff.toString() + " calories from going over your limit!" ); //This dialog asks the user if they want to
                         builder.setPositiveButton("Whatever, man", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 //do nothing i guess
                             }
                         });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
 
                 } catch (FileNotFoundException e) {
