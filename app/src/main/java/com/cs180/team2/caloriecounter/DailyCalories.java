@@ -94,7 +94,8 @@ public class DailyCalories extends AppCompatActivity {
         layout.addView(textView);
 
 
-        File dir = Environment.getDataDirectory();
+        String root = Environment.getExternalStorageDirectory().toString();
+        File dir = new File(root + "/daily_logs"); //FILE DIRECTORY
         if(!dir.exists()) {
             dir.mkdirs();
         }
@@ -187,7 +188,7 @@ public class DailyCalories extends AppCompatActivity {
         Thing object = new Thing.Builder()
                 .setName("Daily Calories Page")
                 // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("https://caloriecounter-93b96.firebaseio.com/"))
+                .setUrl(Uri.parse("https://kaloriekounterk.firebaseio.com/"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)
                 .setObject(object)
@@ -267,7 +268,7 @@ public class DailyCalories extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void startLog() {
+    public void startLog(View view) {
         Intent intent = new Intent(this, Log.class);
         startActivity(intent);
     }

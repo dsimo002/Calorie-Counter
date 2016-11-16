@@ -30,7 +30,8 @@ public class Log extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
 
-        File dir = Environment.getDataDirectory();
+        String root = Environment.getExternalStorageDirectory().toString();
+        File dir = new File(root + "/daily_logs"); //FILE DIRECTORY
         if(!dir.exists()) {
             dir.mkdirs();
         }
@@ -90,32 +91,32 @@ public class Log extends AppCompatActivity {
                             snacks.add(tempFood);
                         }
                     }
-                    log.append("Breakfast\n\n");
-                    for(FoodEntry food:breakfast) {
-                        log.append("Name: " + food.Name + "\n");
-                        log.append("Calories: " + food.Calories.toString() + "\n");
-                        log.append("Description: " + food.Description + "\n\n");
+                    log.setText("Breakfast\n\n");
+                    for(int i = 0; i < breakfast.size(); i++) {
+                        log.append("Name: " + breakfast.get(i).Name + "\n");
+                        log.append("Calories: " + breakfast.get(i).Calories.toString() + "\n");
+                        log.append("Description: " + breakfast.get(i).Description + "\n\n");
                     }
 
                     log.append("Lunch\n\n");
-                    for(FoodEntry food:lunch) {
-                        log.append("Name: " + food.Name + "\n");
-                        log.append("Calories: " + food.Calories.toString() + "\n");
-                        log.append("Description: " + food.Description + "\n\n");
+                    for(int i = 0; i < lunch.size(); i++) {
+                        log.append("Name: " + lunch.get(i).Name + "\n");
+                        log.append("Calories: " + lunch.get(i).Calories.toString() + "\n");
+                        log.append("Description: " + lunch.get(i).Description + "\n\n");
                     }
 
                     log.append("Dinner\n\n");
-                    for(FoodEntry food:dinner) {
-                        log.append("Name: " + food.Name + "\n");
-                        log.append("Calories: " + food.Calories.toString() + "\n");
-                        log.append("Description: " + food.Description + "\n\n");
+                    for(int i = 0; i < dinner.size(); i++) {
+                        log.append("Name: " + dinner.get(i).Name + "\n");
+                        log.append("Calories: " + dinner.get(i).Calories.toString() + "\n");
+                        log.append("Description: " + dinner.get(i).Description + "\n\n");
                     }
 
                     log.append("Snacks\n\n");
-                    for(FoodEntry food:snacks) {
-                        log.append("Name: " + food.Name + "\n");
-                        log.append("Calories: " + food.Calories.toString() + "\n");
-                        log.append("Description: " + food.Description + "\n\n");
+                    for(int i = 0; i < snacks.size(); i++) {
+                        log.append("Name: " + snacks.get(i).Name + "\n");
+                        log.append("Calories: " + snacks.get(i).Calories.toString() + "\n");
+                        log.append("Description: " + snacks.get(i).Description + "\n\n");
                     }
 
                 } catch (FileNotFoundException e) {

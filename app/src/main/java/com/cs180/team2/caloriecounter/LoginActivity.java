@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
 
 
-            final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/registeredusers");
+            final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/registeredusers");
             //final DatabaseReference User = registeredusers.child(email);  // Chanho: access firebase and search by email
 
             ValueEventListener valueEventListener = registeredusers.addValueEventListener(new ValueEventListener() {  //Chanho: Create listener that will obtain values of user
@@ -233,8 +233,8 @@ public class LoginActivity extends AppCompatActivity {
         m_Text = "";
         final int usrChoice = 0;
         final int pwChoice = 1;
-        final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/registeredusers");
-        final DatabaseReference usersByName = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/usersByName");
+        final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/registeredusers");
+        final DatabaseReference usersByName = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/usersByName");
         final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
         builder.setMessage("Enter your Full Name and then click \"username\" button " +
                 "to get your username or enter your username and click the \"password\" button to get your password");

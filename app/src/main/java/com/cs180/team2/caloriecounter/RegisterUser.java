@@ -147,8 +147,8 @@ public class RegisterUser extends AppCompatActivity {
         final String sa = getString(iSecretA);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/registeredusers");
-        final DatabaseReference userRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/usersByName");
+        final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/registeredusers");
+        final DatabaseReference userRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/usersByName");
 
         registeredusers.child(uName).setValue(new User (fName, pw, sq, sa));    //registeruser branch
         userRef.child(fName).setValue(new UserByName(uName,pw, sq, sa));        //userByName branch
@@ -177,7 +177,7 @@ public class RegisterUser extends AppCompatActivity {
         if (!isShort()) {
             if (pw.equals(verifyPass)) {
 
-                final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/registeredusers");
+                final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/registeredusers");
                 ValueEventListener valueEventListener = registeredusers.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

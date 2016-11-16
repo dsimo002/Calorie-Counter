@@ -92,7 +92,7 @@ public class AddEntry extends AppCompatActivity {
         EditText inputTxt = (EditText) findViewById(R.id.text);
         final String str = inputTxt.getText().toString().trim().toLowerCase();
 
-        final DatabaseReference mFoodRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/Food");
+        final DatabaseReference mFoodRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/Food");
         mFoodRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -151,7 +151,8 @@ public class AddEntry extends AppCompatActivity {
 
                                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        File dir = Environment.getDataDirectory(); //FILE DIRECTORY
+                                        String root = Environment.getExternalStorageDirectory().toString();
+                                        File dir = new File(root + "/daily_logs"); //FILE DIRECTORY
 
 
                                         Calendar c = Calendar.getInstance();
@@ -176,7 +177,7 @@ public class AddEntry extends AppCompatActivity {
                                                 FileOutputStream outputStream = new FileOutputStream(file, true);
                                                 outputStream.write(item.Name.getBytes());
                                                 outputStream.write("\n".getBytes());
-                                                outputStream.write(item.Calories.byteValue());
+                                                outputStream.write(item.Calories.toString().getBytes());
                                                 outputStream.write("\n".getBytes());
                                                 outputStream.write(item.Description.getBytes());
                                                 outputStream.write("\n".getBytes());
@@ -201,7 +202,7 @@ public class AddEntry extends AppCompatActivity {
                                                 FileOutputStream outputStream = new FileOutputStream(file);
                                                 outputStream.write(item.Name.getBytes());
                                                 outputStream.write("\n".getBytes());
-                                                outputStream.write(item.Calories.byteValue());
+                                                outputStream.write(item.Calories.toString().getBytes());
                                                 outputStream.write("\n".getBytes());
                                                 outputStream.write(item.Description.getBytes());
                                                 outputStream.write("\n".getBytes());

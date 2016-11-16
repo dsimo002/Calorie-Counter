@@ -31,7 +31,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://caloriecounter-93b96.firebaseio.com/registeredusers");
+        final DatabaseReference registeredusers = FirebaseDatabase.getInstance().getReferenceFromUrl("https://kaloriekounterk.firebaseio.com/Food");
         final EditText enterPassView = (EditText) findViewById(R.id.enterPass_edit);
         final EditText newPassView = (EditText) findViewById(R.id.newPass_edit);
         final EditText confirmNewView = (EditText) findViewById(R.id.confirmNew_edit);
