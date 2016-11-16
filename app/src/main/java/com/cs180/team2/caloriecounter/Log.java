@@ -1,6 +1,8 @@
 package com.cs180.team2.caloriecounter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static com.cs180.team2.caloriecounter.DailyCalories.cal_limit;
 import static com.cs180.team2.caloriecounter.LoginActivity.username;
 
 public class Log extends AppCompatActivity {
@@ -145,6 +148,32 @@ public class Log extends AppCompatActivity {
                     }
                     grandtotal = breakfasttotal + lunchtotal + dinnertotal + snackstotal;
                     log.append("Total Calories consumed today: " + grandtotal.toString());
+
+                    if(grandtotal >= Long.parseLong(cal_limit)) {
+                        Long diff = grandtotal - Long.parseLong(cal_limit);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Log.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
+                        builder.setMessage("Warning: You are " + diff.toString() + " calories over your limit!" ); //This dialog asks the user if they want to
+                        builder.setPositiveButton("Whoops", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //do something funny like play sad_trombone.mp3 here?
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+
+                    else if((Long.parseLong(cal_limit) - grandtotal) <= 200) {
+                        Long diff = Long.parseLong(cal_limit) - grandtotal;
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Log.this); //Chanho: Dialogs are popup notifications that require users to interact with to get rid of.
+                        builder.setMessage("Warning: You are only" + diff.toString() + " calories from going over your limit!" ); //This dialog asks the user if they want to
+                        builder.setPositiveButton("Whatever, man", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //do nothing i guess
+                            }
+                        });
+                    }
 
                 } catch (FileNotFoundException e) {
                     Context context = getApplicationContext();
