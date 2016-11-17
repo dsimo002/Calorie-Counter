@@ -22,4 +22,13 @@
     <string name="title_activity_login2">Sign in</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="title_activity_add_food">AddFood</string>
+
+    <array name="myImages">
+        <item>@drawable/boba</item>
+        <item>@drawable/popcorn_chicken</item>
+        <item>@drawable/seared_salmon</item>
+        <item>@drawable/katsu</item>
+    </array>
+    <string name="title_activity_aaaaa">aaaaa</string>
+
 </resources>
